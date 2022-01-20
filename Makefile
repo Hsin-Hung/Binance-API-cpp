@@ -17,7 +17,7 @@ run: clean all
 
 $(BIN)/$(EXECUTABLE): $(SRC)/*.cpp
 	@echo "🚧 Building..."
-	$(CXX) $(CXX_FLAGS) -I$(SRC) $(LIBRARIES) -g $^ -o $@
+	$(CXX) $(CXX_FLAGS) -I$(SRC) $(LIBRARIES) -g $^ -o $@ -lcurl -lssl -lcrypto
 
 clean:
 	@echo "🧹 Clearing..."
