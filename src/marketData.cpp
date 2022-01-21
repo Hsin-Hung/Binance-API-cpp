@@ -149,3 +149,54 @@ void MarketData::get_Current_Avg_Price(std::string symbol)
         curl_easy_cleanup(curl);
     }
 }
+
+void MarketData::get_24hr_Ticker_Price_Change_Stats(std::string symbol)
+{
+    CURL *curl;
+    CURLcode res;
+
+    curl = curl_easy_init();
+    if (curl)
+    {
+        BinanceAPI::QueryParams query_params;
+        query_params.add_new_query("symbol", symbol);
+        std::string url = endpoint + "/api/v3/ticker/24hr?" + query_params.to_str();
+
+        setup_curl_opt(curl, url, "", std::vector<Header>(), GET);
+        /* Perform the request, res will get the return code */
+        res = curl_easy_perform(curl);
+
+        /* Check for errors */
+        if (res != CURLE_OK)
+            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
+
+        /* always cleanup */
+        curl_easy_cleanup(curl);
+    }
+}
+
+void MarketData::get_Symbol_Price(std::string symbol)
+{
+    CURL *curl;
+    CURLcode res;
+
+    curl = curl_easy_init();
+    if (curl)
+    {
+        BinanceAPI::QueryParams query_params;
+        query_params.add_new_query("symbol", symbol);
+        std::string url = endpoint + "/api/v3/ticker/price?" + query_params.to_str();
+
+        setup_curl_opt(curl, url, "", std::vector<Header>(), GET);
+        /* Perform the request, res will get the return code */
+        res = curl_easy_perform(curl);
+
+        /* Check for errors */
+        if (res != CURLE_OK)
+            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
+
+        /* always cleanup */
+        curl_easy_cleanup(curl);
+    }
+}
+
