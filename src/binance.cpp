@@ -24,24 +24,14 @@ int main(void)
   // md.get_KlineCandlestick_Data("ETHUSDT", "5m", -1, -1, 10 );
   // md.get_Current_Avg_Price("ETHUSDT");
 
+  std::vector<std::string> streams{"btcusdt@aggTrade", "btcusdt@depth"};
+
   BinanceWebsocket binweb;
-
-  // binweb.subscribe_Streams({"btcusdt@aggTrade", "btcusdt@depth"}, [](beast::error_code ec, json data) -> bool
-  //                          {
-  //                                 std::cout << data.dump() << std::endl;
-  //                                  return true; });
-
-      std::thread th(&BinanceWebsocket::stream_Trade, binweb, "btcusdt", [](beast::error_code ec, json data) -> bool
-                     {
-                                      std::cout << data.dump() << std::endl;
-                                      return true; });
-
-      binweb.stream_Aggregate_Trade("btcusdt", [](beast::error_code ec, json data) -> bool
-                                    {
-                                      std::cout << data.dump() << std::endl;
-                                      return true; });
-
-      th.join();
-
+  binweb.init();
+  binweb.subscribe_Streams(streams, [](beast::error_code ec, json j) -> bool
+                      { std::cout << j.dump() << std::endl; });
+  binweb.access_Combined_Streams(streams, [](beast::error_code ec, json j) -> bool
+                      { std::cout << j.dump() << std::endl; });
+  binweb.run();
   return 0;
 }

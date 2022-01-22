@@ -66,25 +66,59 @@ public:
 
     // Start the asynchronous operation
     void
-    run(
+    init(
         char const *host,
-        char const *port,
-        char const *path,
-        json req_body,
-        stream_callback call_back)
+        char const *port)
     {
+        std::cout << "init" << std::endl;
         // Save these for later
         host_ = host;
+        // Look up the domain name
+        try
+        {
+            auto const results = resolver_.resolve(host, port);
+            auto ep = beast::get_lowest_layer(ws_).connect(results);
+            if (!SSL_set_tlsext_host_name(
+                    ws_.next_layer().native_handle(),
+                    host_.c_str()))
+            {
+                beast::error_code ec = beast::error_code(static_cast<int>(::ERR_get_error()),
+                                                         net::error::get_ssl_category());
+                return fail(ec, "connect");
+            }
+            host_ += ':' + std::to_string(ep.port());
+        }
+        catch (std::exception const &e)
+        {
+            std::cerr << "Error: " << e.what() << std::endl;
+            return;
+        }
+
+        // resolver_.async_resolve(
+        //     host,
+        //     port,
+        //     beast::bind_front_handler(
+        //         &session::on_resolve,
+        //         shared_from_this()));
+    }
+
+    bool
+    run(
+        char const *path,
+        json req_body,
+        stream_callback callback)
+    {
         path_ = path;
         req_body_ = req_body;
-        callback_ = call_back;
-        // Look up the domain name
-        resolver_.async_resolve(
-            host,
-            port,
+        callback_ = callback;
+
+            // Perform the SSL handshake
+        ws_.next_layer().async_handshake(
+            ssl::stream_base::client,
             beast::bind_front_handler(
-                &session::on_resolve,
+                &session::on_ssl_handshake,
                 shared_from_this()));
+        
     }
 
     void
@@ -99,6 +133,7 @@ public:
         // beast::get_lowest_layer(ws_).expires_after(std::chrono::seconds(30));
 
         // Make the connection on the IP address we get from a lookup
+
         beast::get_lowest_layer(ws_).async_connect(
             results,
             beast::bind_front_handler(
@@ -124,18 +159,18 @@ public:
                                    net::error::get_ssl_category());
             return fail(ec, "connect");
         }
-
         // Update the host_ string. This will provide the value of the
         // Host HTTP header during the WebSocket handshake.
         // See https://tools.ietf.org/html/rfc7230#section-5.4
         host_ += ':' + std::to_string(ep.port());
-
+        std::cout << host_ << std::endl;
         // Perform the SSL handshake
-        ws_.next_layer().async_handshake(
-            ssl::stream_base::client,
-            beast::bind_front_handler(
-                &session::on_ssl_handshake,
-                shared_from_this()));
+        // ws_.next_layer().async_handshake(
+        //     ssl::stream_base::client,
+        //     beast::bind_front_handler(
+        //         &session::on_ssl_handshake,
+        //         shared_from_this()));
+        std::cout << "connection done" << std::endl;
     }
 
     void
@@ -260,9 +295,14 @@ public:
 
 class BinanceWebsocket
 {
+    net::io_context ioc;
+    ssl::context ctx{ssl::context::tlsv12_client};
+    std::shared_ptr<session> ws;
 
 public:
     BinanceWebsocket();
+    void init();
+    void run();
     void subscribe_Streams(std::vector<std::string> streams, stream_callback callback);
     void unsubscribe_Streams(std::vector<std::string> streams, stream_callback callback);
     void list_Subscribtions(stream_callback callback);
