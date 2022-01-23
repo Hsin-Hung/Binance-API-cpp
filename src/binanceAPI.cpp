@@ -6,12 +6,17 @@ void BinanceAPI::set_api_keys(std::string api_key, std::string secret_key)
     this->secret_key = secret_key;
 }
 
-void BinanceAPI::setup_curl_opt(CURL *curl, std::string url, std::string data, std::vector<Header> headers, Action action)
+void BinanceAPI::setup_curl_opt(CURL *curl, std::string url, std::string data, std::vector<Header> headers, Action action, struct memory &result)
 {
+
     std::cout << url << std::endl;
 
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-    
+     /* send all data to this function  */
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, curl_callback);
+ 
+    /* we pass our 'result' struct to the callback function */
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &result);
     struct curl_slist *list = NULL;
     for (auto &h : headers)
     {
@@ -24,6 +29,20 @@ void BinanceAPI::setup_curl_opt(CURL *curl, std::string url, std::string data, s
         curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, action_str[action].c_str());
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
     }
+}
+
+void BinanceAPI::start_curl(CURL *curl){
+
+    CURLcode res;
+    res = curl_easy_perform(curl);
+
+    /* Check for errors */
+    if (res != CURLE_OK)
+        std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
+
+    /* always cleanup */
+    curl_easy_cleanup(curl);
+
 }
 
 std::string bin2hex(unsigned char *input, unsigned int len)

@@ -8,7 +8,7 @@ public:
     Wallet() : BinanceAPI() {}
 
     void init(){};
-    void get_System_Status();
-    void get_All_Coins(uint64_t timestamp, uint64_t recv_window);
+    void get_System_Status(json &result);
+    void get_All_Coins(uint64_t timestamp, uint64_t recv_window, json &result);
 };
 #endif

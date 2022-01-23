@@ -8,14 +8,14 @@ class MarketData : public BinanceAPI
 {
 public:
     MarketData() : BinanceAPI() {}
-    void get_Connectivity();
-    void get_Time();
+    void get_Connectivity(json &result);
+    void get_Time(json &result);
     void init(){};
-    void get_Exchange_Info(const std::vector<std::string> &symbols);
-    void get_KlineCandlestick_Data(std::string symbol, std::string interval, uint64_t startTime, uint64_t endTime, uint64_t limit);
-    void get_Current_Avg_Price(std::string symbol);
-    void get_24hr_Ticker_Price_Change_Stats(std::string symbol);
-    void get_Symbol_Price(std::string symbol);
+    void get_Exchange_Info(const std::vector<std::string> &symbols, json &result);
+    void get_KlineCandlestick_Data(std::string symbol, std::string interval, uint64_t startTime, uint64_t endTime, uint64_t limit, json &result);
+    void get_Current_Avg_Price(std::string symbol, json &result);
+    void get_24hr_Ticker_Price_Change_Stats(std::string symbol, json &result);
+    void get_Symbol_Price(std::string symbol, json &result);
 };
 
 #endif

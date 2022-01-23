@@ -2,6 +2,7 @@
 #include "binanceAPI.h"
 #include <boost/asio.hpp>
 #include <mutex>
+#include <thread>
 #include <condition_variable>
 #include "../include/json.hpp"
 
@@ -35,6 +36,8 @@ void BinanceWebsocket::init()
 
 void BinanceWebsocket::run()
 {
+        auto work = boost::asio::require(ioc.get_executor(),
+    boost::asio::execution::outstanding_work.tracked);
     ioc.run();
 }
 void BinanceWebsocket::subscribe_Streams(std::vector<std::string> streams, stream_callback callback)

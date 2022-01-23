@@ -1,56 +1,42 @@
 #include "marketData.h"
 
-void MarketData::get_Connectivity()
+void MarketData::get_Connectivity(json &result)
 {
-    CURL *curl;
-    CURLcode res;
+    struct memory chunk;
 
+    CURL *curl;
     curl = curl_easy_init();
     if (curl)
     {
         std::string url = endpoint + "/api/v3/ping";
 
-        setup_curl_opt(curl, url, "", std::vector<Header>(), GET);
-        /* Perform the request, res will get the return code */
-        res = curl_easy_perform(curl);
-
-        /* Check for errors */
-        if (res != CURLE_OK)
-            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
-
-        /* always cleanup */
-        curl_easy_cleanup(curl);
+        setup_curl_opt(curl, url, "", std::vector<Header>(), GET, chunk);
+        start_curl(curl);
+        result = json::parse(chunk.response);
     }
 }
 
-void MarketData::get_Time()
+void MarketData::get_Time(json &result)
 {
-    CURL *curl;
-    CURLcode res;
+    struct memory chunk;
 
+    CURL *curl;
     curl = curl_easy_init();
     if (curl)
     {
         std::string url = endpoint + "/api/v3/time";
 
-        setup_curl_opt(curl, url, "", std::vector<Header>(), GET);
-        /* Perform the request, res will get the return code */
-        res = curl_easy_perform(curl);
-
-        /* Check for errors */
-        if (res != CURLE_OK)
-            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
-
-        /* always cleanup */
-        curl_easy_cleanup(curl);
+        setup_curl_opt(curl, url, "", std::vector<Header>(), GET, chunk);
+        start_curl(curl);
+        result = json::parse(chunk.response);
     }
 }
 
-void MarketData::get_Exchange_Info(const std::vector<std::string> &symbols)
+void MarketData::get_Exchange_Info(const std::vector<std::string> &symbols, json &result)
 {
-    CURL *curl;
-    CURLcode res;
+    struct memory chunk;
 
+    CURL *curl;
     curl = curl_easy_init();
     if (curl)
     {
@@ -75,24 +61,17 @@ void MarketData::get_Exchange_Info(const std::vector<std::string> &symbols)
         }
 
         std::string url = endpoint + "/api/v3/exchangeInfo?" + query_params.to_str();
-        setup_curl_opt(curl, url, "", std::vector<Header>(), GET);
-        /* Perform the request, res will get the return code */
-        res = curl_easy_perform(curl);
-
-        /* Check for errors */
-        if (res != CURLE_OK)
-            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
-
-        /* always cleanup */
-        curl_easy_cleanup(curl);
+        setup_curl_opt(curl, url, "", std::vector<Header>(), GET, chunk);
+        start_curl(curl);
+        result = json::parse(chunk.response);
     }
 }
 
-void MarketData::get_KlineCandlestick_Data(std::string symbol, std::string interval, uint64_t startTime, uint64_t endTime, uint64_t limit)
+void MarketData::get_KlineCandlestick_Data(std::string symbol, std::string interval, uint64_t startTime, uint64_t endTime, uint64_t limit, json &result)
 {
+    struct memory chunk;
+    
     CURL *curl;
-    CURLcode res;
-
     curl = curl_easy_init();
     if (curl)
     {
@@ -112,24 +91,17 @@ void MarketData::get_KlineCandlestick_Data(std::string symbol, std::string inter
             query_params.add_new_query("limit", std::to_string(limit));
         }
         std::string url = endpoint + "/api/v3/klines?" + query_params.to_str();
-        setup_curl_opt(curl, url, "", std::vector<Header>(), GET);
-        /* Perform the request, res will get the return code */
-        res = curl_easy_perform(curl);
-
-        /* Check for errors */
-        if (res != CURLE_OK)
-            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
-
-        /* always cleanup */
-        curl_easy_cleanup(curl);
+        setup_curl_opt(curl, url, "", std::vector<Header>(), GET, chunk);
+        start_curl(curl);
+        result = json::parse(chunk.response);
     }
 }
 
-void MarketData::get_Current_Avg_Price(std::string symbol)
+void MarketData::get_Current_Avg_Price(std::string symbol, json &result)
 {
+    struct memory chunk;
+    
     CURL *curl;
-    CURLcode res;
-
     curl = curl_easy_init();
     if (curl)
     {
@@ -137,24 +109,17 @@ void MarketData::get_Current_Avg_Price(std::string symbol)
         query_params.add_new_query("symbol", symbol);
         std::string url = endpoint + "/api/v3/avgPrice?" + query_params.to_str();
 
-        setup_curl_opt(curl, url, "", std::vector<Header>(), GET);
-        /* Perform the request, res will get the return code */
-        res = curl_easy_perform(curl);
-
-        /* Check for errors */
-        if (res != CURLE_OK)
-            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
-
-        /* always cleanup */
-        curl_easy_cleanup(curl);
+        setup_curl_opt(curl, url, "", std::vector<Header>(), GET, chunk);
+        start_curl(curl);
+        result = json::parse(chunk.response);
     }
 }
 
-void MarketData::get_24hr_Ticker_Price_Change_Stats(std::string symbol)
+void MarketData::get_24hr_Ticker_Price_Change_Stats(std::string symbol, json &result)
 {
+    struct memory chunk;
+    
     CURL *curl;
-    CURLcode res;
-
     curl = curl_easy_init();
     if (curl)
     {
@@ -162,24 +127,17 @@ void MarketData::get_24hr_Ticker_Price_Change_Stats(std::string symbol)
         query_params.add_new_query("symbol", symbol);
         std::string url = endpoint + "/api/v3/ticker/24hr?" + query_params.to_str();
 
-        setup_curl_opt(curl, url, "", std::vector<Header>(), GET);
-        /* Perform the request, res will get the return code */
-        res = curl_easy_perform(curl);
-
-        /* Check for errors */
-        if (res != CURLE_OK)
-            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
-
-        /* always cleanup */
-        curl_easy_cleanup(curl);
+        setup_curl_opt(curl, url, "", std::vector<Header>(), GET, chunk);
+        start_curl(curl);
+        result = json::parse(chunk.response);
     }
 }
 
-void MarketData::get_Symbol_Price(std::string symbol)
+void MarketData::get_Symbol_Price(std::string symbol, json &result)
 {
+    struct memory chunk;
+    
     CURL *curl;
-    CURLcode res;
-
     curl = curl_easy_init();
     if (curl)
     {
@@ -187,16 +145,9 @@ void MarketData::get_Symbol_Price(std::string symbol)
         query_params.add_new_query("symbol", symbol);
         std::string url = endpoint + "/api/v3/ticker/price?" + query_params.to_str();
 
-        setup_curl_opt(curl, url, "", std::vector<Header>(), GET);
-        /* Perform the request, res will get the return code */
-        res = curl_easy_perform(curl);
-
-        /* Check for errors */
-        if (res != CURLE_OK)
-            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
-
-        /* always cleanup */
-        curl_easy_cleanup(curl);
+        setup_curl_opt(curl, url, "", std::vector<Header>(), GET, chunk);
+        start_curl(curl);
+        result = json::parse(chunk.response);
     }
 }
 
