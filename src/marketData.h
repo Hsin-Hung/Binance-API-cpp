@@ -3,6 +3,7 @@
 #include <string>
 #include <numeric>
 #include "binanceAPI.h"
+#include "marketDataUtils.h"
 
 class MarketData : public BinanceAPI
 {
@@ -11,11 +12,11 @@ public:
     void get_Connectivity(json &result);
     void get_Time(json &result);
     void init(){};
-    void get_Exchange_Info(const std::vector<std::string> &symbols, json &result);
-    void get_KlineCandlestick_Data(std::string symbol, std::string interval, uint64_t startTime, uint64_t endTime, uint64_t limit, json &result);
-    void get_Current_Avg_Price(std::string symbol, json &result);
-    void get_24hr_Ticker_Price_Change_Stats(std::string symbol, json &result);
-    void get_Symbol_Price(std::string symbol, json &result);
+    void get_Exchange_Info(MarketExchangeInfoParams params, json &result);
+    void get_KlineCandlestick_Data(MarketKCDataParams params, json &result);
+    void get_Current_Avg_Price(MarketSymbolParams params, json &result);
+    void get_24hr_Ticker_Price_Change_Stats(MarketSymbolParams params, json &result);
+    void get_Symbol_Price(MarketSymbolParams params, json &result);
 };
 
 #endif

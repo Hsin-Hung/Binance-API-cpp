@@ -11,19 +11,9 @@
 #include <openssl/evp.h>
 #include <openssl/bn.h>
 #include "../include/json.hpp"
+#include "binanceAPIUtils.h"
 
 using json = nlohmann::json;
-
-enum Action
-{
-    GET,
-    POST,
-    PUT,
-    DELETE,
-
-};
-
-static const std::vector<std::string> action_str{"GET", "POST", "PUT", "DELETE"};
 
 struct Header
 {
@@ -31,19 +21,20 @@ struct Header
     std::string value;
 };
 
-struct memory {
+struct memory
+{
     char *response;
     size_t size;
 };
 
- static size_t curl_callback(char *ptr, size_t size, size_t nmemb, void *userdata)
- {
+static size_t curl_callback(char *ptr, size_t size, size_t nmemb, void *userdata)
+{
     size_t realsize = size * nmemb;
-    struct memory *mem =(struct memory *) userdata;
+    struct memory *mem = (struct memory *)userdata;
     mem->response = ptr;
     mem->size = realsize;
     return realsize;
- }
+}
 
 class BinanceAPI
 {
@@ -64,6 +55,14 @@ public:
         void add_new_query(std::string key, std::string value)
         {
             params.push_back(key + "=" + value);
+        }
+        void add_new_query(std::string key, uint64_t value)
+        {
+            add_new_query(key, std::to_string(value));
+        }
+        void add_new_query(std::string key, double value)
+        {
+            add_new_query(key, std::to_string(value));
         }
         std::string to_str()
         {

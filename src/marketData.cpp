@@ -10,9 +10,10 @@ void MarketData::get_Connectivity(json &result)
     {
         std::string url = endpoint + "/api/v3/ping";
 
-        setup_curl_opt(curl, url, "", std::vector<Header>(), GET, chunk);
+        setup_curl_opt(curl, url, "", std::vector<Header>(), Action::GET, chunk);
         start_curl(curl);
-        result = json::parse(chunk.response);
+        if (json::accept(chunk.response))
+            result = json::parse(chunk.response);
     }
 }
 
@@ -26,13 +27,14 @@ void MarketData::get_Time(json &result)
     {
         std::string url = endpoint + "/api/v3/time";
 
-        setup_curl_opt(curl, url, "", std::vector<Header>(), GET, chunk);
+        setup_curl_opt(curl, url, "", std::vector<Header>(), Action::GET, chunk);
         start_curl(curl);
-        result = json::parse(chunk.response);
+        if (json::accept(chunk.response))
+            result = json::parse(chunk.response);
     }
 }
 
-void MarketData::get_Exchange_Info(const std::vector<std::string> &symbols, json &result)
+void MarketData::get_Exchange_Info(MarketExchangeInfoParams params, json &result)
 {
     struct memory chunk;
 
@@ -42,18 +44,18 @@ void MarketData::get_Exchange_Info(const std::vector<std::string> &symbols, json
     {
         BinanceAPI::QueryParams query_params;
 
-        if (symbols.size() == 1)
+        if (!params.symbol.empty())
         {
-            query_params.add_new_query("symbol", symbols[0]);
+            query_params.add_new_query("symbol", params.symbol);
         }
         else
         {
             std::string symbols_lst;
             symbols_lst += "[";
-            for (auto i = 0; i < symbols.size(); ++i)
+            for (auto i = 0; i < params.symbols.size(); ++i)
             {
-                symbols_lst += "\"" + symbols[i] + "\"";
-                if (i != symbols.size() - 1)
+                symbols_lst += "\"" + params.symbols[i] + "\"";
+                if (i != params.symbols.size() - 1)
                     symbols_lst += ",";
             }
             symbols_lst += "]";
@@ -61,13 +63,14 @@ void MarketData::get_Exchange_Info(const std::vector<std::string> &symbols, json
         }
 
         std::string url = endpoint + "/api/v3/exchangeInfo?" + query_params.to_str();
-        setup_curl_opt(curl, url, "", std::vector<Header>(), GET, chunk);
+        setup_curl_opt(curl, url, "", std::vector<Header>(), Action::GET, chunk);
         start_curl(curl);
-        result = json::parse(chunk.response);
+        if (json::accept(chunk.response))
+            result = json::parse(chunk.response);
     }
 }
 
-void MarketData::get_KlineCandlestick_Data(std::string symbol, std::string interval, uint64_t startTime, uint64_t endTime, uint64_t limit, json &result)
+void MarketData::get_KlineCandlestick_Data(MarketKCDataParams params, json &result)
 {
     struct memory chunk;
     
@@ -77,27 +80,30 @@ void MarketData::get_KlineCandlestick_Data(std::string symbol, std::string inter
     {
         BinanceAPI::QueryParams query_params;
 
-        query_params.add_new_query("symbol", symbol);
-        query_params.add_new_query("interval", interval);
+        query_params.add_new_query("symbol", params.symbol);
+        query_params.add_new_query("interval", get_KCChartIntervals(params.interval));
 
-        if (startTime != -1 && endTime != -1)
+        if (params.startTime != 0)
         {
-            query_params.add_new_query("startTime", std::to_string(startTime));
-            query_params.add_new_query("endTime", std::to_string(endTime));
+            query_params.add_new_query("startTime", params.startTime);
         }
-
-        if (limit != -1)
+        if (params.endTime != 0)
         {
-            query_params.add_new_query("limit", std::to_string(limit));
+            query_params.add_new_query("endTime",params.endTime);
+        }
+        if (params.limit != 0)
+        {
+            query_params.add_new_query("limit", std::to_string(params.limit));
         }
         std::string url = endpoint + "/api/v3/klines?" + query_params.to_str();
-        setup_curl_opt(curl, url, "", std::vector<Header>(), GET, chunk);
+        setup_curl_opt(curl, url, "", std::vector<Header>(), Action::GET, chunk);
         start_curl(curl);
-        result = json::parse(chunk.response);
+        if (json::accept(chunk.response))
+            result = json::parse(chunk.response);
     }
 }
 
-void MarketData::get_Current_Avg_Price(std::string symbol, json &result)
+void MarketData::get_Current_Avg_Price(MarketSymbolParams params, json &result)
 {
     struct memory chunk;
     
@@ -106,16 +112,16 @@ void MarketData::get_Current_Avg_Price(std::string symbol, json &result)
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        query_params.add_new_query("symbol", symbol);
+        query_params.add_new_query("symbol", params.symbol);
         std::string url = endpoint + "/api/v3/avgPrice?" + query_params.to_str();
 
-        setup_curl_opt(curl, url, "", std::vector<Header>(), GET, chunk);
+        setup_curl_opt(curl, url, "", std::vector<Header>(), Action::GET, chunk);
         start_curl(curl);
         result = json::parse(chunk.response);
     }
 }
 
-void MarketData::get_24hr_Ticker_Price_Change_Stats(std::string symbol, json &result)
+void MarketData::get_24hr_Ticker_Price_Change_Stats(MarketSymbolParams params, json &result)
 {
     struct memory chunk;
     
@@ -124,16 +130,17 @@ void MarketData::get_24hr_Ticker_Price_Change_Stats(std::string symbol, json &re
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        query_params.add_new_query("symbol", symbol);
+        query_params.add_new_query("symbol", params.symbol);
         std::string url = endpoint + "/api/v3/ticker/24hr?" + query_params.to_str();
 
-        setup_curl_opt(curl, url, "", std::vector<Header>(), GET, chunk);
+        setup_curl_opt(curl, url, "", std::vector<Header>(), Action::GET, chunk);
         start_curl(curl);
-        result = json::parse(chunk.response);
+        if (json::accept(chunk.response))
+            result = json::parse(chunk.response);
     }
 }
 
-void MarketData::get_Symbol_Price(std::string symbol, json &result)
+void MarketData::get_Symbol_Price(MarketSymbolParams params, json &result)
 {
     struct memory chunk;
     
@@ -142,12 +149,13 @@ void MarketData::get_Symbol_Price(std::string symbol, json &result)
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        query_params.add_new_query("symbol", symbol);
+        query_params.add_new_query("symbol", params.symbol);
         std::string url = endpoint + "/api/v3/ticker/price?" + query_params.to_str();
 
-        setup_curl_opt(curl, url, "", std::vector<Header>(), GET, chunk);
+        setup_curl_opt(curl, url, "", std::vector<Header>(), Action::GET, chunk);
         start_curl(curl);
-        result = json::parse(chunk.response);
+        if (json::accept(chunk.response))
+            result = json::parse(chunk.response);
     }
 }
 
