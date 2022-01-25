@@ -29,8 +29,8 @@ void Wallet::AllCoins(WalletAllCoinsParams params, json &result)
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        if (params.recv_window != 0)
-            query_params.add_new_query("recvWindow", params.recv_window);
+
+        query_params.add_new_query("recvWindow", params.recv_window);
         query_params.add_new_query("timestamp", params.timestamp);
         std::cout << query_params.to_str() << std::endl;
         std::string sig;

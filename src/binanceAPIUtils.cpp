@@ -57,6 +57,8 @@ std::string get_TimeInForce(TimeInForce time)
         return "IOC";
     case TimeInForce::FOK:
         return "FOK";
+    case TimeInForce::NONE:
+        return "NONE";
     default:
         std::cout << "no such type" << std::endl;
     }
@@ -76,6 +78,8 @@ std::string get_OrderResponseType(OrderResponseType type)
         return "RESULT";
     case OrderResponseType::FULL:
         return "FULL";
+    case OrderResponseType::NONE:
+        return "NONE";
     default:
         std::cout << "no such type" << std::endl;
     }

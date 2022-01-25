@@ -54,15 +54,18 @@ public:
         QueryParams(){};
         void add_new_query(std::string key, std::string value)
         {
-            params.push_back(key + "=" + value);
+            if (!value.empty())
+                params.push_back(key + "=" + value);
         }
         void add_new_query(std::string key, uint64_t value)
         {
-            add_new_query(key, std::to_string(value));
+            if (value != 0)
+                add_new_query(key, std::to_string(value));
         }
         void add_new_query(std::string key, double value)
         {
-            add_new_query(key, std::to_string(value));
+            if (value != 0.0)
+                add_new_query(key, std::to_string(value));
         }
         std::string to_str()
         {

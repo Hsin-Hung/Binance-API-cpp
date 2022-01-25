@@ -20,11 +20,8 @@ typedef struct SpotOrder
     uint64_t recvWindow;
     uint64_t timestamp;
 
-    SpotOrder() : quantity{0}, quoteOrderQty{0}, price{0}, stopPrice{0}, icebergQty{0}, recvWindow{0}, timestamp{0}
+    SpotOrder() : timeInForce{TimeInForce::NONE}, quantity{0}, quoteOrderQty{0}, price{0}, stopPrice{0}, icebergQty{0}, newOrderRespType{OrderResponseType::NONE}, recvWindow{0}, timestamp{0}
     {
-
-        timeInForce = TimeInForce::NONE;
-        newOrderRespType = OrderResponseType::NONE;
     }
 
 } SpotOrderParams;
@@ -71,6 +68,148 @@ typedef struct QuerySpotOrder
     {
     }
 
-}QuerySpotOrderParams;
+} QuerySpotOrderParams;
+
+typedef struct OpenSpotOrders
+{
+
+    std::string symbol;
+    uint64_t recvWindow;
+    uint64_t timestamp;
+
+    OpenSpotOrders() : recvWindow{0}, timestamp{0}
+    {
+    }
+
+} OpenSpotOrdersParams;
+
+typedef struct AllSpotOrders
+{
+
+    std::string symbol;
+    uint64_t orderId;
+    uint64_t startTime;
+    uint64_t endTime;
+    uint64_t limit;
+    uint64_t recvWindow;
+    uint64_t timestamp;
+
+    AllSpotOrders() : orderId{0}, startTime{0}, endTime{0}, limit{0}, recvWindow{0}, timestamp{0}
+    {
+    }
+
+} AllSpotOrdersParams;
+
+typedef struct NewSpotOCO
+{
+
+    std::string symbol;
+    std::string listClientOrderId;
+    OrderSide side;
+    double quantity;
+    std::string limitClientOrderId;
+    double price;
+    double limitIcebergQty;
+    std::string stopClientOrderId;
+    double stopPrice;
+    double stopLimitPrice;
+    double stopIcebergQty;
+    TimeInForce stopLimitTimeInForce;
+    OrderResponseType newOrderRespType;
+    uint64_t recvWindow;
+    uint64_t timestamp;
+
+    NewSpotOCO() : quantity{0}, price{0}, limitIcebergQty{0}, stopPrice{0}, stopLimitPrice{0}, stopIcebergQty{0},
+                   stopLimitTimeInForce{TimeInForce::NONE}, newOrderRespType{OrderResponseType::NONE}, recvWindow{0}, timestamp{0}
+    {
+    }
+
+} NewSpotOCOParams;
+
+typedef struct CancelSpotOCO
+{
+
+    std::string symbol;
+    uint64_t orderListId;
+    std::string listClientOrderId;
+    std::string newClientOrderId;
+
+    uint64_t recvWindow;
+    uint64_t timestamp;
+
+    CancelSpotOCO() : orderListId{0}, recvWindow{0}, timestamp{0}
+    {
+    }
+
+} CancelSpotOCOParams;
+
+typedef struct QuerySpotOCO
+{
+
+    uint64_t orderListId;
+    std::string origClientOrderId;
+
+    uint64_t recvWindow;
+    uint64_t timestamp;
+
+    QuerySpotOCO() : orderListId{0}, recvWindow{0}, timestamp{0}
+    {
+    }
+
+} QuerySpotOCOParams;
+
+typedef struct QueryAllSpotOCO
+{
+
+    uint64_t fromId;
+    uint64_t startTime;
+    uint64_t endTime;
+    uint64_t limit;
+    uint64_t recvWindow;
+    uint64_t timestamp;
+
+    QueryAllSpotOCO() : fromId{0}, startTime{0}, endTime{0}, limit{0}, recvWindow{0}, timestamp{0}
+    {
+    }
+
+} QueryAllSpotOCOParams;
+
+typedef struct QueryOpenSpotOCO
+{
+    uint64_t recvWindow;
+    uint64_t timestamp;
+    QueryOpenSpotOCO() : recvWindow{0}, timestamp{0} {}
+
+} QueryOpenSpotOCOParams;
+
+typedef struct SpotAccountInfo
+{
+    uint64_t recvWindow;
+    uint64_t timestamp;
+    SpotAccountInfo() : recvWindow{0}, timestamp{0} {}
+
+} SpotAccountInfoParams;
+
+typedef struct SpotAccountTradeList
+{
+    std::string symbol;
+    uint64_t orderId;
+    uint64_t startTime;
+    uint64_t endTime;
+    uint64_t fromId;
+    uint64_t limit;
+    uint64_t recvWindow;
+    uint64_t timestamp;
+    SpotAccountTradeList() : orderId{0}, startTime{0}, endTime{0}, fromId{0}, limit{0}, recvWindow{0}, timestamp{0} {}
+
+} SpotAccountTradeListParams;
+
+typedef struct QuerySpotOrderCount
+{
+    uint64_t recvWindow;
+    uint64_t timestamp;
+    QuerySpotOrderCount() : recvWindow{0}, timestamp{0} {}
+
+} QuerySpotOrderCountParams;
 
 #endif

@@ -73,7 +73,7 @@ void MarketData::get_Exchange_Info(MarketExchangeInfoParams params, json &result
 void MarketData::get_KlineCandlestick_Data(MarketKCDataParams params, json &result)
 {
     struct memory chunk;
-    
+
     CURL *curl;
     curl = curl_easy_init();
     if (curl)
@@ -82,19 +82,10 @@ void MarketData::get_KlineCandlestick_Data(MarketKCDataParams params, json &resu
 
         query_params.add_new_query("symbol", params.symbol);
         query_params.add_new_query("interval", get_KCChartIntervals(params.interval));
+        query_params.add_new_query("startTime", params.startTime);
+        query_params.add_new_query("endTime", params.endTime);
+        query_params.add_new_query("limit", params.limit);
 
-        if (params.startTime != 0)
-        {
-            query_params.add_new_query("startTime", params.startTime);
-        }
-        if (params.endTime != 0)
-        {
-            query_params.add_new_query("endTime",params.endTime);
-        }
-        if (params.limit != 0)
-        {
-            query_params.add_new_query("limit", std::to_string(params.limit));
-        }
         std::string url = endpoint + "/api/v3/klines?" + query_params.to_str();
         setup_curl_opt(curl, url, "", std::vector<Header>(), Action::GET, chunk);
         start_curl(curl);
@@ -106,7 +97,7 @@ void MarketData::get_KlineCandlestick_Data(MarketKCDataParams params, json &resu
 void MarketData::get_Current_Avg_Price(MarketSymbolParams params, json &result)
 {
     struct memory chunk;
-    
+
     CURL *curl;
     curl = curl_easy_init();
     if (curl)
@@ -124,7 +115,7 @@ void MarketData::get_Current_Avg_Price(MarketSymbolParams params, json &result)
 void MarketData::get_24hr_Ticker_Price_Change_Stats(MarketSymbolParams params, json &result)
 {
     struct memory chunk;
-    
+
     CURL *curl;
     curl = curl_easy_init();
     if (curl)
@@ -143,7 +134,7 @@ void MarketData::get_24hr_Ticker_Price_Change_Stats(MarketSymbolParams params, j
 void MarketData::get_Symbol_Price(MarketSymbolParams params, json &result)
 {
     struct memory chunk;
-    
+
     CURL *curl;
     curl = curl_easy_init();
     if (curl)
@@ -158,4 +149,3 @@ void MarketData::get_Symbol_Price(MarketSymbolParams params, json &result)
             result = json::parse(chunk.response);
     }
 }
-
