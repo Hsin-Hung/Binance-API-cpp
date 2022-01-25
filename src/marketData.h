@@ -9,14 +9,19 @@ class MarketData : public BinanceAPI
 {
 public:
     MarketData() : BinanceAPI() {}
-    void get_Connectivity(json &result);
-    void get_Time(json &result);
+    void TestConnectivity(json &result);
+    void CheckServerTime(json &result);
     void init(){};
-    void get_Exchange_Info(MarketExchangeInfoParams params, json &result);
-    void get_KlineCandlestick_Data(MarketKCDataParams params, json &result);
-    void get_Current_Avg_Price(MarketSymbolParams params, json &result);
-    void get_24hr_Ticker_Price_Change_Stats(MarketSymbolParams params, json &result);
-    void get_Symbol_Price(MarketSymbolParams params, json &result);
+    void ExchangeInfo(MarketExchangeInfoParams params, json &result);
+    void OrderBook(MarketOrderBookParams params, json &result);
+    void RecentTradesList(MarketRecentTradesListParams params, json &result);
+    void OldTradeLookup(MarketOldTradeLookupParams params, json &result);
+    void CompAggTradesList(MarketCompAggTradesListParams params, json &result);
+    void KlineCandlestickData(MarketKCDataParams params, json &result);
+    void CurrentAvgPrice(MarketSymbolParams params, json &result);
+    void _24hrTickerPriceChangeStats(MarketSymbolParams params, json &result);
+    void SymbolPrice(MarketSymbolParams params, json &result);
+    void SymbolOrderBookTicker(MarketSymbolParams params, json &result);
 };
 
 #endif

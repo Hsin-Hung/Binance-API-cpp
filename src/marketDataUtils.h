@@ -11,6 +11,38 @@ typedef struct MarketExchangeInfo{
 
 } MarketExchangeInfoParams;
 
+typedef struct MarketOrderBook{
+
+    std::string symbol;
+    uint64_t limit;
+
+} MarketOrderBookParams;
+
+typedef struct MarketRecentTradesList{
+
+    std::string symbol;
+    uint64_t limit;
+
+} MarketRecentTradesListParams;
+
+typedef struct MarketOldTradeLookup{
+
+    std::string symbol;
+    uint64_t limit;
+    uint64_t fromId;
+
+} MarketOldTradeLookupParams;
+
+typedef struct MarketCompAggTradesList{
+
+    std::string symbol;
+    uint64_t fromId;
+    uint64_t startTime;
+    uint64_t endTime;
+    uint64_t limit;
+
+} MarketCompAggTradesListParams;
+
 typedef struct MarketKCData{
 
     std::string symbol;
