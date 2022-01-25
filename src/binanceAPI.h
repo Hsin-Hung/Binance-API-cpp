@@ -67,6 +67,20 @@ public:
             if (value != 0.0)
                 add_new_query(key, std::to_string(value));
         }
+        void add_new_query(std::string key, bool value)
+        {
+            if (value)
+                add_new_query(key, "true");
+            else
+                add_new_query(key, "false");
+        }
+        void add_new_query(std::string key, std::vector<std::string> value)
+        {
+            for (auto &v : value)
+            {
+                add_new_query(key, v);
+            }
+        }
         std::string to_str()
         {
             std::string ret;

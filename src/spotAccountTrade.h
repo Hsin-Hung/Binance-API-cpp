@@ -8,23 +8,23 @@ class SpotAccountTrade : public BinanceAPI{
 
 public:
     SpotAccountTrade(){};
-    void processOrder(BinanceAPI::QueryParams &query_params, const SpotOrder &order);
+    void ProcessOrder(BinanceAPI::QueryParams &query_params, const SpotOrder &order);
     void init(){};
-    void testNewOrder(SpotOrderParams order, json &result);
-    void newOrder(SpotOrderParams order, json &result);
-    void cancelOrder(CancelSpotOrderParams order, json &result);
-    void cancelAllOpenOrders(CancelSpotOrderParams order, json &result);
-    void queryOrder(QuerySpotOrderParams order, json &result);
-    void currentOpenOrders(OpenSpotOrdersParams order, json &result);
-    void allOrders(AllSpotOrdersParams order, json &result);
-    void newOCO(NewSpotOCOParams order, json &result);
-    void cancelOCO(CancelSpotOCOParams order, json &result);
-    void queryOCO(QuerySpotOCOParams order, json &result);
-    void queryAllOCO(QueryAllSpotOCOParams order, json &result);
-    void queryOpenOCO(QueryOpenSpotOCOParams order, json &result);
-    void accountInfo(SpotAccountInfoParams account, json &result);
-    void accountTradeList(SpotAccountTradeListParams account, json &result);
-    void queryOrderCount(QuerySpotOrderCountParams order, json &result);
+    void TestNewOrder(SpotOrderParams order, json &result);
+    void NewOrder(SpotOrderParams order, json &result);
+    void CancelOrder(CancelSpotOrderParams order, json &result);
+    void CancelAllOpenOrders(CancelSpotOrderParams order, json &result);
+    void QueryOrder(QuerySpotOrderParams order, json &result);
+    void CurrentOpenOrders(OpenSpotOrdersParams order, json &result);
+    void AllOrders(AllSpotOrdersParams order, json &result);
+    void NewOCO(NewSpotOCOParams order, json &result);
+    void CancelOCO(CancelSpotOCOParams order, json &result);
+    void QueryOCO(QuerySpotOCOParams order, json &result);
+    void QueryAllOCO(QueryAllSpotOCOParams order, json &result);
+    void QueryOpenOCO(QueryOpenSpotOCOParams order, json &result);
+    void AccountInfo(SpotAccountInfoParams account, json &result);
+    void AccountTradeList(SpotAccountTradeListParams account, json &result);
+    void QueryOrderCount(QuerySpotOrderCountParams order, json &result);
 };
 
 

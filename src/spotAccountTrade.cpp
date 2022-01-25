@@ -1,6 +1,6 @@
 #include "spotAccountTrade.h"
 
-void SpotAccountTrade::processOrder(BinanceAPI::QueryParams &query_params, const SpotOrder &order)
+void SpotAccountTrade::ProcessOrder(BinanceAPI::QueryParams &query_params, const SpotOrder &order)
 {
 
     query_params.add_new_query("symbol", order.symbol);
@@ -23,7 +23,7 @@ void SpotAccountTrade::processOrder(BinanceAPI::QueryParams &query_params, const
     query_params.add_new_query("timestamp", order.timestamp);
 }
 
-void SpotAccountTrade::testNewOrder(SpotOrderParams order, json &result)
+void SpotAccountTrade::TestNewOrder(SpotOrderParams order, json &result)
 {
 
     struct memory chunk;
@@ -33,7 +33,7 @@ void SpotAccountTrade::testNewOrder(SpotOrderParams order, json &result)
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        processOrder(query_params, order);
+        ProcessOrder(query_params, order);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_new_query("signature", sig);
@@ -48,7 +48,7 @@ void SpotAccountTrade::testNewOrder(SpotOrderParams order, json &result)
     }
 }
 
-void SpotAccountTrade::newOrder(SpotOrderParams order, json &result)
+void SpotAccountTrade::NewOrder(SpotOrderParams order, json &result)
 {
     struct memory chunk;
 
@@ -57,7 +57,7 @@ void SpotAccountTrade::newOrder(SpotOrderParams order, json &result)
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        processOrder(query_params, order);
+        ProcessOrder(query_params, order);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_new_query("signature", sig);
@@ -72,7 +72,7 @@ void SpotAccountTrade::newOrder(SpotOrderParams order, json &result)
     }
 }
 
-void SpotAccountTrade::cancelOrder(CancelSpotOrderParams order, json &result)
+void SpotAccountTrade::CancelOrder(CancelSpotOrderParams order, json &result)
 {
 
     struct memory chunk;
@@ -102,7 +102,7 @@ void SpotAccountTrade::cancelOrder(CancelSpotOrderParams order, json &result)
     }
 }
 
-void SpotAccountTrade::cancelAllOpenOrders(CancelSpotOrderParams order, json &result)
+void SpotAccountTrade::CancelAllOpenOrders(CancelSpotOrderParams order, json &result)
 {
 
     struct memory chunk;
@@ -129,7 +129,7 @@ void SpotAccountTrade::cancelAllOpenOrders(CancelSpotOrderParams order, json &re
     }
 }
 
-void SpotAccountTrade::queryOrder(QuerySpotOrderParams order, json &result)
+void SpotAccountTrade::QueryOrder(QuerySpotOrderParams order, json &result)
 {
 
     struct memory chunk;
@@ -158,7 +158,7 @@ void SpotAccountTrade::queryOrder(QuerySpotOrderParams order, json &result)
     }
 }
 
-void SpotAccountTrade::currentOpenOrders(OpenSpotOrdersParams order, json &result)
+void SpotAccountTrade::CurrentOpenOrders(OpenSpotOrdersParams order, json &result)
 {
 
     struct memory chunk;
@@ -185,7 +185,7 @@ void SpotAccountTrade::currentOpenOrders(OpenSpotOrdersParams order, json &resul
     }
 }
 
-void SpotAccountTrade::allOrders(AllSpotOrdersParams order, json &result)
+void SpotAccountTrade::AllOrders(AllSpotOrdersParams order, json &result)
 {
 
     struct memory chunk;
@@ -216,7 +216,7 @@ void SpotAccountTrade::allOrders(AllSpotOrdersParams order, json &result)
     }
 }
 
-void SpotAccountTrade::newOCO(NewSpotOCOParams order, json &result)
+void SpotAccountTrade::NewOCO(NewSpotOCOParams order, json &result)
 {
 
     struct memory chunk;
@@ -260,7 +260,7 @@ void SpotAccountTrade::newOCO(NewSpotOCOParams order, json &result)
     }
 }
 
-void SpotAccountTrade::cancelOCO(CancelSpotOCOParams order, json &result)
+void SpotAccountTrade::CancelOCO(CancelSpotOCOParams order, json &result)
 {
 
     struct memory chunk;
@@ -290,7 +290,7 @@ void SpotAccountTrade::cancelOCO(CancelSpotOCOParams order, json &result)
     }
 }
 
-void SpotAccountTrade::queryOCO(QuerySpotOCOParams order, json &result)
+void SpotAccountTrade::QueryOCO(QuerySpotOCOParams order, json &result)
 {
     struct memory chunk;
 
@@ -317,7 +317,7 @@ void SpotAccountTrade::queryOCO(QuerySpotOCOParams order, json &result)
     }
 }
 
-void SpotAccountTrade::queryAllOCO(QueryAllSpotOCOParams order, json &result)
+void SpotAccountTrade::QueryAllOCO(QueryAllSpotOCOParams order, json &result)
 {
     struct memory chunk;
 
@@ -346,7 +346,7 @@ void SpotAccountTrade::queryAllOCO(QueryAllSpotOCOParams order, json &result)
     }
 }
 
-void SpotAccountTrade::queryOpenOCO(QueryOpenSpotOCOParams order, json &result)
+void SpotAccountTrade::QueryOpenOCO(QueryOpenSpotOCOParams order, json &result)
 {
 
     struct memory chunk;
@@ -372,7 +372,7 @@ void SpotAccountTrade::queryOpenOCO(QueryOpenSpotOCOParams order, json &result)
     }
 }
 
-void SpotAccountTrade::accountInfo(SpotAccountInfoParams account, json &result)
+void SpotAccountTrade::AccountInfo(SpotAccountInfoParams account, json &result)
 {
     struct memory chunk;
 
@@ -397,7 +397,7 @@ void SpotAccountTrade::accountInfo(SpotAccountInfoParams account, json &result)
     }
 }
 
-void SpotAccountTrade::accountTradeList(SpotAccountTradeListParams account, json &result)
+void SpotAccountTrade::AccountTradeList(SpotAccountTradeListParams account, json &result)
 {
     struct memory chunk;
 
@@ -428,7 +428,7 @@ void SpotAccountTrade::accountTradeList(SpotAccountTradeListParams account, json
     }
 }
 
-void SpotAccountTrade::queryOrderCount(QuerySpotOrderCountParams order, json &result)
+void SpotAccountTrade::QueryOrderCount(QuerySpotOrderCountParams order, json &result)
 {
     struct memory chunk;
 
