@@ -82,7 +82,7 @@ typedef struct SavingsFixedActivityList{
     uint64_t recvWindow;
     uint64_t timestamp;
 
-     SavingsFixedActivityList(): status{SavingsStatus::NONE}, isSortAsc{false}, sortBy{SavingsSortBy::NONE}, current{0}, size{0}, recvWindow{0}, timestamp{0}{};
+     SavingsFixedActivityList(): status{SavingsStatus::NONE}, isSortAsc{true}, sortBy{SavingsSortBy::NONE}, current{0}, size{0}, recvWindow{0}, timestamp{0}{};
 
 } SavingsFixedActivityListParams;
 

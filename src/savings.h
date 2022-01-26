@@ -6,8 +6,7 @@
 class Savings : public BinanceAPI{
 
     public:
-    Savings(){};
-    void init(){};
+    Savings() : BinanceAPI() {};
     void GetFlexProducts(SavingsFlexProductsParams params, json &result);
     void GetFlexLeftQuota(SavingsFlexLeftQuotaParams params, json &result);
     void PurchaseFlex(SavingsPurchaseFlexParams params, json &result);

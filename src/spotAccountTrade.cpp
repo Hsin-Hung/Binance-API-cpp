@@ -36,15 +36,14 @@ void SpotAccountTrade::TestNewOrder(SpotOrderParams order, json &result)
         ProcessOrder(query_params, order);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/api/v3/order/test?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
-        setup_curl_opt(curl, url, "", headers, Action::POST, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        headers.push_back(Header{api_key_header, api_key});
+        SetUpCurlOpt(curl, url, "", headers, Action::POST, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 }
 
@@ -60,15 +59,14 @@ void SpotAccountTrade::NewOrder(SpotOrderParams order, json &result)
         ProcessOrder(query_params, order);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/api/v3/order?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
-        setup_curl_opt(curl, url, "", headers, Action::POST, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        headers.push_back(Header{api_key_header, api_key});
+        SetUpCurlOpt(curl, url, "", headers, Action::POST, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 }
 
@@ -90,15 +88,14 @@ void SpotAccountTrade::CancelOrder(CancelSpotOrderParams order, json &result)
         query_params.add_new_query("timestamp", order.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/api/v3/order?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
-        setup_curl_opt(curl, url, "", headers, Action::DELETE, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        headers.push_back(Header{api_key_header, api_key});
+        SetUpCurlOpt(curl, url, "", headers, Action::DELETE, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 }
 
@@ -117,15 +114,14 @@ void SpotAccountTrade::CancelAllOpenOrders(CancelSpotOrderParams order, json &re
         query_params.add_new_query("timestamp", order.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/api/v3/openOrders?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
-        setup_curl_opt(curl, url, "", headers, Action::DELETE, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        headers.push_back(Header{api_key_header, api_key});
+        SetUpCurlOpt(curl, url, "", headers, Action::DELETE, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 }
 
@@ -146,15 +142,14 @@ void SpotAccountTrade::QueryOrder(QuerySpotOrderParams order, json &result)
         query_params.add_new_query("timestamp", order.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/api/v3/order?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        headers.push_back(Header{api_key_header, api_key});
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 }
 
@@ -173,15 +168,14 @@ void SpotAccountTrade::CurrentOpenOrders(OpenSpotOrdersParams order, json &resul
         query_params.add_new_query("timestamp", order.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/api/v3/openOrders?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        headers.push_back(Header{api_key_header, api_key});
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 }
 
@@ -204,15 +198,14 @@ void SpotAccountTrade::AllOrders(AllSpotOrdersParams order, json &result)
         query_params.add_new_query("timestamp", order.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
-        std::string url = endpoint + "/api/v3/openOrders?" + query_params.to_str();
+        query_params.add_signature(sig);
+        std::string url = endpoint + "/api/v3/allOrders?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        headers.push_back(Header{api_key_header, api_key});
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 }
 
@@ -248,15 +241,14 @@ void SpotAccountTrade::NewOCO(NewSpotOCOParams order, json &result)
         query_params.add_new_query("timestamp", order.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/api/v3/order/oco?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
-        setup_curl_opt(curl, url, "", headers, Action::POST, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        headers.push_back(Header{api_key_header, api_key});
+        SetUpCurlOpt(curl, url, "", headers, Action::POST, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 }
 
@@ -278,15 +270,14 @@ void SpotAccountTrade::CancelOCO(CancelSpotOCOParams order, json &result)
         query_params.add_new_query("timestamp", order.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/api/v3/orderList?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
-        setup_curl_opt(curl, url, "", headers, Action::DELETE, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        headers.push_back(Header{api_key_header, api_key});
+        SetUpCurlOpt(curl, url, "", headers, Action::DELETE, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 }
 
@@ -305,15 +296,14 @@ void SpotAccountTrade::QueryOCO(QuerySpotOCOParams order, json &result)
         query_params.add_new_query("timestamp", order.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/api/v3/orderList?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        headers.push_back(Header{api_key_header, api_key});
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 }
 
@@ -334,15 +324,14 @@ void SpotAccountTrade::QueryAllOCO(QueryAllSpotOCOParams order, json &result)
         query_params.add_new_query("timestamp", order.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/api/v3/allOrderList?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        headers.push_back(Header{api_key_header, api_key});
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 }
 
@@ -360,15 +349,14 @@ void SpotAccountTrade::QueryOpenOCO(QueryOpenSpotOCOParams order, json &result)
         query_params.add_new_query("timestamp", order.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/api/v3/openOrderList?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        headers.push_back(Header{api_key_header, api_key});
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 }
 
@@ -385,15 +373,14 @@ void SpotAccountTrade::AccountInfo(SpotAccountInfoParams account, json &result)
         query_params.add_new_query("timestamp", account.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/api/v3/account?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        headers.push_back(Header{api_key_header, api_key});
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 }
 
@@ -416,19 +403,18 @@ void SpotAccountTrade::AccountTradeList(SpotAccountTradeListParams account, json
         query_params.add_new_query("timestamp", account.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/api/v3/myTrades?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        headers.push_back(Header{api_key_header, api_key});
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 }
 
-void SpotAccountTrade::QueryOrderCount(QuerySpotOrderCountParams order, json &result)
+void SpotAccountTrade::QueryOrderCountUsage(QuerySpotOrderCountParams order, json &result)
 {
     struct memory chunk;
 
@@ -441,14 +427,13 @@ void SpotAccountTrade::QueryOrderCount(QuerySpotOrderCountParams order, json &re
         query_params.add_new_query("timestamp", order.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/api/v3/rateLimit/order?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        headers.push_back(Header{api_key_header, api_key});
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 }

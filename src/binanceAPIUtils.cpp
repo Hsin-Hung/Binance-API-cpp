@@ -207,7 +207,7 @@ std::string get_SavingsFixedActivityType(SavingsFixedActivityType type){
 
 }
 
-std::string get_SavingsSavingsSortBy(SavingsSortBy by){
+std::string get_SavingsSortBy(SavingsSortBy by){
 
     switch (by)
     {

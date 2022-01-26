@@ -7,8 +7,6 @@ class Wallet : public BinanceAPI
 {
 public:
     Wallet() : BinanceAPI() {}
-
-    void init(){};
     void SystemStatus(json &result);
     void AllCoins(WalletAllCoinsParams params, json &result);
     void DailyAccountSnapshot(WalletAccountSnapParams params, json &result);

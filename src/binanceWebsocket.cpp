@@ -1,10 +1,4 @@
 #include "binanceWebsocket.h"
-#include "binanceAPI.h"
-#include <boost/asio.hpp>
-#include <mutex>
-#include <thread>
-#include <condition_variable>
-#include "../include/json.hpp"
 
 // Report a failure
 void fail(beast::error_code ec, char const *what)
@@ -15,10 +9,8 @@ void fail(beast::error_code ec, char const *what)
 BinanceWebsocket::BinanceWebsocket() : ctx{ssl::context::tlsv12_client}
 {
 }
-void BinanceWebsocket::init()
+void BinanceWebsocket::ConnectWebSocket()
 {
-
-    // net::io_context ioc;
 
     // The SSL context is required, and holds certificates
     // ssl::context ctx{ssl::context::tlsv12_client};
@@ -34,17 +26,14 @@ void BinanceWebsocket::init()
     // the socket is closed.
 }
 
-void BinanceWebsocket::run()
+void BinanceWebsocket::Run()
 {
-        auto work = boost::asio::require(ioc.get_executor(),
-    boost::asio::execution::outstanding_work.tracked);
+    auto work = boost::asio::require(ioc.get_executor(),
+                                     boost::asio::execution::outstanding_work.tracked);
     ioc.run();
 }
 void BinanceWebsocket::SubscribeStreams(std::vector<std::string> streams, stream_callback callback)
 {
-    std::mutex m;
-    std::condition_variable cv;
-    bool ready = false;
 
     std::string path = "/stream";
 
@@ -57,8 +46,7 @@ void BinanceWebsocket::SubscribeStreams(std::vector<std::string> streams, stream
     // load_root_certificates(ctx);
 
     // Launch the asynchronous operation
-    ws->run(path.c_str(), j , callback);
-
+    ws->run(path.c_str(), j, callback);
 }
 
 void BinanceWebsocket::UnsubscribeStreams(std::vector<std::string> streams, stream_callback callback)
@@ -93,7 +81,6 @@ void BinanceWebsocket::ListSubscribtions(stream_callback callback)
 
     // Launch the asynchronous operation
     ws->run(path.c_str(), j, callback);
-    
 }
 
 void BinanceWebsocket::AccessCombinedStreams(std::vector<std::string> streams, stream_callback callback)
@@ -139,10 +126,10 @@ void BinanceWebsocket::StreamTrade(std::string symbol, stream_callback callback)
     // Launch the asynchronous operation
     ws->run(path.c_str(), json(), callback);
 }
-void BinanceWebsocket::StreamKlineCandlestick(std::string symbol, std::string interval, stream_callback callback)
+void BinanceWebsocket::StreamKlineCandlestick(std::string symbol, KCChartIntervals interval, stream_callback callback)
 {
 
-    std::string path = "/ws/" + symbol + "@kline_" + interval;
+    std::string path = "/ws/" + symbol + "@kline_" + get_KCChartIntervals(interval);
 
     // This holds the root certificate used for verification
     // load_root_certificates(ctx);
@@ -216,10 +203,12 @@ void BinanceWebsocket::StreamAllBookTickers(stream_callback callback)
     ws->run(path.c_str(), json(), callback);
 }
 
-void BinanceWebsocket::StreamPartialBookDepth(std::string symbol, std::string levels, stream_callback callback)
+void BinanceWebsocket::StreamPartialBookDepth(std::string symbol, std::string levels, bool updateSpeed, stream_callback callback)
 {
 
     std::string path = "/ws/" + symbol + "@depth" + levels;
+    if(updateSpeed)
+        path += "@100ms";
 
     // This holds the root certificate used for verification
     // load_root_certificates(ctx);
@@ -227,10 +216,12 @@ void BinanceWebsocket::StreamPartialBookDepth(std::string symbol, std::string le
     // Launch the asynchronous operation
     ws->run(path.c_str(), json(), callback);
 }
-void BinanceWebsocket::StreamDiffDepth(std::string symbol, stream_callback callback)
+void BinanceWebsocket::StreamDiffDepth(std::string symbol, bool updateSpeed, stream_callback callback)
 {
 
     std::string path = "/ws/" + symbol + "@depth";
+    if(updateSpeed)
+        path += "@100ms";
 
     // This holds the root certificate used for verification
     // load_root_certificates(ctx);
@@ -239,7 +230,8 @@ void BinanceWebsocket::StreamDiffDepth(std::string symbol, stream_callback callb
     ws->run(path.c_str(), json(), callback);
 }
 
-void BinanceWebsocket::StreamUserData(std::string key, stream_callback callback){
+void BinanceWebsocket::StreamUserData(std::string key, stream_callback callback)
+{
 
     std::string path = "/ws/" + key;
 
@@ -247,6 +239,4 @@ void BinanceWebsocket::StreamUserData(std::string key, stream_callback callback)
     // load_root_certificates(ctx);
     // Launch the asynchronous operation
     ws->run(path.c_str(), json(), callback);
-
-
 }

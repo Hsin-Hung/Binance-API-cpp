@@ -11,7 +11,6 @@ public:
     MarketData() : BinanceAPI() {}
     void TestConnectivity(json &result);
     void CheckServerTime(json &result);
-    void init(){};
     void ExchangeInfo(MarketExchangeInfoParams params, json &result);
     void OrderBook(MarketOrderBookParams params, json &result);
     void RecentTradesList(MarketRecentTradesListParams params, json &result);

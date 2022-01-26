@@ -20,7 +20,9 @@
 #include <boost/beast/websocket.hpp>
 #include <boost/beast/websocket/ssl.hpp>
 #include <boost/asio/strand.hpp>
+#include <boost/asio.hpp>
 #include "../include/json.hpp"
+#include "binanceAPI.h"
 #include <cstdlib>
 #include <functional>
 #include <iostream>
@@ -70,7 +72,7 @@ public:
         char const *host,
         char const *port)
     {
-        std::cout << "init" << std::endl;
+
         // Save these for later
         host_ = host;
         // Look up the domain name
@@ -301,23 +303,23 @@ class BinanceWebsocket
 
 public:
     BinanceWebsocket();
-    void init();
-    void run();
+    void ConnectWebSocket();
+    void Run();
     void SubscribeStreams(std::vector<std::string> streams, stream_callback callback);
     void UnsubscribeStreams(std::vector<std::string> streams, stream_callback callback);
     void ListSubscribtions(stream_callback callback);
     void AccessCombinedStreams(std::vector<std::string> streams, stream_callback callback);
     void StreamAggregateTrade(std::string symbol, stream_callback callback);
     void StreamTrade(std::string symbol, stream_callback callback);
-    void StreamKlineCandlestick(std::string symbol, std::string interval, stream_callback callback);
+    void StreamKlineCandlestick(std::string symbol, KCChartIntervals interval, stream_callback callback);
     void StreamMiniTicker(std::string symbol, stream_callback callback);
     void StreamAllMiniTickers(stream_callback callback);
     void StreamSymbolTicker(std::string symbol, stream_callback callback);
     void StreamAllMarketTickers(stream_callback callback);
     void StreamSymbolBookTicker(std::string symbol, stream_callback callback);
     void StreamAllBookTickers(stream_callback callback);
-    void StreamPartialBookDepth(std::string symbol, std::string levels, stream_callback callback);
-    void StreamDiffDepth(std::string symbol, stream_callback callback);
+    void StreamPartialBookDepth(std::string symbol, std::string levels, bool updateSpeed, stream_callback callback);
+    void StreamDiffDepth(std::string symbol, bool updateSpeed, stream_callback callback);
     void StreamUserData(std::string key, stream_callback callback);
 };
 

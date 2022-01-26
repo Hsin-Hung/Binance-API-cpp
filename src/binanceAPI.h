@@ -42,6 +42,7 @@ class BinanceAPI
 protected:
     std::string api_key;
     std::string secret_key;
+    std::string api_key_header{"X-MBX-APIKEY"};
     std::string endpoint{"https://api.binance.com"};
 
 public:
@@ -81,6 +82,10 @@ public:
                 add_new_query(key, v);
             }
         }
+        void add_signature(std::string sig)
+        {
+            add_new_query("signature", sig);
+        }
         std::string to_str()
         {
             std::string ret;
@@ -94,10 +99,10 @@ public:
         }
     };
     BinanceAPI(){};
-    void set_api_keys(std::string api_key, std::string secret_key);
-    void setup_curl_opt(CURL *curl, std::string url, std::string data, std::vector<Header> headers, Action action, struct memory &result);
-    void start_curl(CURL *curl);
-    virtual void init() = 0;
+    void SetApiKeys(std::string api_key, std::string secret_key);
+    void SetUpCurlOpt(CURL *curl, std::string url, std::string data, std::vector<Header> headers, Action action, struct memory &result);
+    void StartCurl(CURL *curl);
+    void ParseToJson(std::string data, json &result);
     virtual ~BinanceAPI() = default;
 };
 std::string bin2hex(unsigned char *input, unsigned int len);

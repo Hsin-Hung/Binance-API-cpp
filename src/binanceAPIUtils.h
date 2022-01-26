@@ -115,7 +115,7 @@ enum class SavingsSortBy
     NONE 
 };
 
-std::string get_SavingsSavingsSortBy(SavingsSortBy by);
+std::string get_SavingsSortBy(SavingsSortBy by);
 
 enum class SavingsFixedActivityPositionStatus
 {

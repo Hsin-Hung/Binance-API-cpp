@@ -13,12 +13,11 @@ void UserDataStreams::CreateListenKey(json &result){
         std::string url = endpoint + "/api/v3/userDataStream";
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::POST, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        SetUpCurlOpt(curl, url, "", headers, Action::POST, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 
 }
@@ -37,12 +36,11 @@ void UserDataStreams::PingListenKey(UserDataStreamsListenKeyParams params, json 
         std::string url = endpoint + "/api/v3/userDataStream?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::PUT, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        SetUpCurlOpt(curl, url, "", headers, Action::PUT, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 
 }
@@ -63,12 +61,11 @@ void UserDataStreams::CloseListenKey(UserDataStreamsListenKeyParams params, json
         std::string url = endpoint + "/api/v3/userDataStream?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::DELETE, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        SetUpCurlOpt(curl, url, "", headers, Action::DELETE, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
 
 }

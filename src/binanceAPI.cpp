@@ -1,12 +1,12 @@
 #include "binanceAPI.h"
 
-void BinanceAPI::set_api_keys(std::string api_key, std::string secret_key)
+void BinanceAPI::SetApiKeys(std::string api_key, std::string secret_key)
 {
     this->api_key = api_key;
     this->secret_key = secret_key;
 }
 
-void BinanceAPI::setup_curl_opt(CURL *curl, std::string url, std::string data, std::vector<Header> headers, Action action, struct memory &result)
+void BinanceAPI::SetUpCurlOpt(CURL *curl, std::string url, std::string data, std::vector<Header> headers, Action action, struct memory &result)
 {
 
     std::cout << url << std::endl;
@@ -24,14 +24,14 @@ void BinanceAPI::setup_curl_opt(CURL *curl, std::string url, std::string data, s
         list = curl_slist_append(list, val.c_str());
     }
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
-    if (action == Action::POST || action == Action::PUT)
+    if (action == Action::POST || action == Action::PUT || action == Action::DELETE)
     {
         curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, get_Action(action).c_str());
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
     }
 }
 
-void BinanceAPI::start_curl(CURL *curl)
+void BinanceAPI::StartCurl(CURL *curl)
 {
 
     CURLcode res;
@@ -43,6 +43,13 @@ void BinanceAPI::start_curl(CURL *curl)
 
     /* always cleanup */
     curl_easy_cleanup(curl);
+}
+
+void BinanceAPI::ParseToJson(std::string data, json &result)
+{
+
+    if (json::accept(data))
+        result = json::parse(data);
 }
 
 std::string bin2hex(unsigned char *input, unsigned int len)

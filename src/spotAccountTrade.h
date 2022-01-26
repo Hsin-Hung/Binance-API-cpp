@@ -7,9 +7,8 @@
 class SpotAccountTrade : public BinanceAPI{
 
 public:
-    SpotAccountTrade(){};
+    SpotAccountTrade() : BinanceAPI() {};
     void ProcessOrder(BinanceAPI::QueryParams &query_params, const SpotOrder &order);
-    void init(){};
     void TestNewOrder(SpotOrderParams order, json &result);
     void NewOrder(SpotOrderParams order, json &result);
     void CancelOrder(CancelSpotOrderParams order, json &result);
@@ -24,7 +23,7 @@ public:
     void QueryOpenOCO(QueryOpenSpotOCOParams order, json &result);
     void AccountInfo(SpotAccountInfoParams account, json &result);
     void AccountTradeList(SpotAccountTradeListParams account, json &result);
-    void QueryOrderCount(QuerySpotOrderCountParams order, json &result);
+    void QueryOrderCountUsage(QuerySpotOrderCountParams order, json &result);
 };
 
 

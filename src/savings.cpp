@@ -1,7 +1,7 @@
 #include "savings.h"
 
-
-void Savings::GetFlexProducts(SavingsFlexProductsParams params, json &result){
+void Savings::GetFlexProducts(SavingsFlexProductsParams params, json &result)
+{
 
     struct memory chunk;
 
@@ -10,32 +10,30 @@ void Savings::GetFlexProducts(SavingsFlexProductsParams params, json &result){
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        if(params.status != SavingsStatus::NONE)
+        if (params.status != SavingsStatus::NONE)
             query_params.add_new_query("status", get_SavingsStatus(params.status));
         query_params.add_new_query("featured", params.featured);
         query_params.add_new_query("current", params.current);
         query_params.add_new_query("size", params.size);
         query_params.add_new_query("recvWindow", params.recvWindow);
         query_params.add_new_query("timestamp", params.timestamp);
-        std::cout << query_params.to_str() << std::endl;
+
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/sapi/v1/lending/daily/product/list?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
-
-
 }
 
-void Savings::GetFlexLeftQuota(SavingsFlexLeftQuotaParams params, json &result){
+void Savings::GetFlexLeftQuota(SavingsFlexLeftQuotaParams params, json &result)
+{
 
     struct memory chunk;
 
@@ -51,21 +49,20 @@ void Savings::GetFlexLeftQuota(SavingsFlexLeftQuotaParams params, json &result){
         std::cout << query_params.to_str() << std::endl;
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/sapi/v1/lending/daily/userLeftQuota?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
-
 }
 
-void Savings::PurchaseFlex(SavingsPurchaseFlexParams params, json &result){
+void Savings::PurchaseFlex(SavingsPurchaseFlexParams params, json &result)
+{
 
     struct memory chunk;
 
@@ -79,24 +76,23 @@ void Savings::PurchaseFlex(SavingsPurchaseFlexParams params, json &result){
         query_params.add_new_query("amount", params.amount);
         query_params.add_new_query("recvWindow", params.recvWindow);
         query_params.add_new_query("timestamp", params.timestamp);
-        std::cout << query_params.to_str() << std::endl;
+
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/sapi/v1/lending/daily/purchase?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::POST, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        SetUpCurlOpt(curl, url, "", headers, Action::POST, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
-
 }
 
-void Savings::GetFlexLeftRedeemQuota(SavingsFlexLeftRedeemQuotaParams params, json &result){
+void Savings::GetFlexLeftRedeemQuota(SavingsFlexLeftRedeemQuotaParams params, json &result)
+{
 
     struct memory chunk;
 
@@ -110,24 +106,23 @@ void Savings::GetFlexLeftRedeemQuota(SavingsFlexLeftRedeemQuotaParams params, js
         query_params.add_new_query("type", get_SavingsFlexRedeemType(params.type));
         query_params.add_new_query("recvWindow", params.recvWindow);
         query_params.add_new_query("timestamp", params.timestamp);
-        std::cout << query_params.to_str() << std::endl;
+
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/sapi/v1/lending/daily/userRedemptionQuota?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
     }
-
 }
 
-void Savings::RedeemFlex(SavingsFlexRedeemParams params, json &result){
+void Savings::RedeemFlex(SavingsFlexRedeemParams params, json &result)
+{
 
     struct memory chunk;
 
@@ -142,26 +137,23 @@ void Savings::RedeemFlex(SavingsFlexRedeemParams params, json &result){
         query_params.add_new_query("type", get_SavingsFlexRedeemType(params.type));
         query_params.add_new_query("recvWindow", params.recvWindow);
         query_params.add_new_query("timestamp", params.timestamp);
-        std::cout << query_params.to_str() << std::endl;
+
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/sapi/v1/lending/daily/redeem?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::POST, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
-    }    
-
-
+        SetUpCurlOpt(curl, url, "", headers, Action::POST, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
+    }
 }
 
-void Savings::GetFlexProductPosition(SavingsFlexProductPositionParams params, json &result){
-
+void Savings::GetFlexProductPosition(SavingsFlexProductPositionParams params, json &result)
+{
 
     struct memory chunk;
 
@@ -174,24 +166,23 @@ void Savings::GetFlexProductPosition(SavingsFlexProductPositionParams params, js
         query_params.add_new_query("asset", params.asset);
         query_params.add_new_query("recvWindow", params.recvWindow);
         query_params.add_new_query("timestamp", params.timestamp);
-        std::cout << query_params.to_str() << std::endl;
+
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/sapi/v1/lending/daily/token/position?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
-    }    
-
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
+    }
 }
 
-void Savings::GetFixedActivityList(SavingsFixedActivityListParams params, json &result){
+void Savings::GetFixedActivityList(SavingsFixedActivityListParams params, json &result)
+{
 
     struct memory chunk;
 
@@ -203,34 +194,32 @@ void Savings::GetFixedActivityList(SavingsFixedActivityListParams params, json &
 
         query_params.add_new_query("asset", params.asset);
         query_params.add_new_query("type", get_SavingsFixedActivityType(params.type));
-        if(params.status != SavingsStatus::NONE)
+        if (params.status != SavingsStatus::NONE)
             query_params.add_new_query("status", get_SavingsStatus(params.status));
         query_params.add_new_query("isSortAsc", params.isSortAsc);
-        if(params.sortBy != SavingsSortBy::NONE)
-            query_params.add_new_query("sortBy", get_SavingsSavingsSortBy(params.sortBy));   
+        if (params.sortBy != SavingsSortBy::NONE)
+            query_params.add_new_query("sortBy", get_SavingsSortBy(params.sortBy));
         query_params.add_new_query("current", params.current);
-        query_params.add_new_query("size", params.size);         
+        query_params.add_new_query("size", params.size);
         query_params.add_new_query("recvWindow", params.recvWindow);
         query_params.add_new_query("timestamp", params.timestamp);
-        std::cout << query_params.to_str() << std::endl;
+
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/sapi/v1/lending/project/list?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
-    }  
-
-
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
+    }
 }
 
-void Savings::PurchaseFixedActivity(SavingsPurchaseFixedActivityParams params, json &result){
+void Savings::PurchaseFixedActivity(SavingsPurchaseFixedActivityParams params, json &result)
+{
 
     struct memory chunk;
 
@@ -241,27 +230,26 @@ void Savings::PurchaseFixedActivity(SavingsPurchaseFixedActivityParams params, j
         BinanceAPI::QueryParams query_params;
 
         query_params.add_new_query("projectId", params.projectId);
-        query_params.add_new_query("lot", params.lot);   
+        query_params.add_new_query("lot", params.lot);
         query_params.add_new_query("recvWindow", params.recvWindow);
         query_params.add_new_query("timestamp", params.timestamp);
-        std::cout << query_params.to_str() << std::endl;
+
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/sapi/v1/lending/customizedFixed/purchase?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::POST, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
-    }  
-
+        SetUpCurlOpt(curl, url, "", headers, Action::POST, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
+    }
 }
 
-void Savings::GetFixedActivityPosition(SavingsFixedActivityPositionParams params, json &result){
+void Savings::GetFixedActivityPosition(SavingsFixedActivityPositionParams params, json &result)
+{
 
     struct memory chunk;
 
@@ -271,32 +259,29 @@ void Savings::GetFixedActivityPosition(SavingsFixedActivityPositionParams params
     {
         BinanceAPI::QueryParams query_params;
 
-        query_params.add_new_query("asset", params.asset); 
+        query_params.add_new_query("asset", params.asset);
         query_params.add_new_query("projectId", params.projectId);
-        if(params.status != SavingsFixedActivityPositionStatus::NONE)
-            query_params.add_new_query("status", get_SavingsFixedActivityPositionStatus(params.status)); 
+        if (params.status != SavingsFixedActivityPositionStatus::NONE)
+            query_params.add_new_query("status", get_SavingsFixedActivityPositionStatus(params.status));
         query_params.add_new_query("recvWindow", params.recvWindow);
         query_params.add_new_query("timestamp", params.timestamp);
-        std::cout << query_params.to_str() << std::endl;
+
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/sapi/v1/lending/project/position/list?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
-    }  
-
-
-
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
+    }
 }
 
-void Savings::LendingAccount(SavingsLendingAccountParams params, json &result){
+void Savings::LendingAccount(SavingsLendingAccountParams params, json &result)
+{
 
     struct memory chunk;
 
@@ -305,27 +290,26 @@ void Savings::LendingAccount(SavingsLendingAccountParams params, json &result){
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
- 
+
         query_params.add_new_query("recvWindow", params.recvWindow);
         query_params.add_new_query("timestamp", params.timestamp);
-        std::cout << query_params.to_str() << std::endl;
+
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/sapi/v1/lending/union/account?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
-    }  
-
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
+    }
 }
 
-void Savings::GetPurchaseRecord(SavingsLendingRecord params, json &result){
+void Savings::GetPurchaseRecord(SavingsLendingRecord params, json &result)
+{
 
     struct memory chunk;
 
@@ -334,7 +318,7 @@ void Savings::GetPurchaseRecord(SavingsLendingRecord params, json &result){
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
- 
+
         query_params.add_new_query("lendingType", get_SavingsLendingType(params.lendingType));
         query_params.add_new_query("asset", params.asset);
         query_params.add_new_query("startTime", params.startTime);
@@ -343,24 +327,23 @@ void Savings::GetPurchaseRecord(SavingsLendingRecord params, json &result){
         query_params.add_new_query("size", params.size);
         query_params.add_new_query("recvWindow", params.recvWindow);
         query_params.add_new_query("timestamp", params.timestamp);
-        std::cout << query_params.to_str() << std::endl;
+
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/sapi/v1/lending/union/purchaseRecord?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
-    } 
-
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
+    }
 }
 
-void Savings::GetRedeemRecord(SavingsLendingRecord params, json &result){
+void Savings::GetRedeemRecord(SavingsLendingRecord params, json &result)
+{
 
     struct memory chunk;
 
@@ -369,7 +352,7 @@ void Savings::GetRedeemRecord(SavingsLendingRecord params, json &result){
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
- 
+
         query_params.add_new_query("lendingType", get_SavingsLendingType(params.lendingType));
         query_params.add_new_query("asset", params.asset);
         query_params.add_new_query("startTime", params.startTime);
@@ -378,25 +361,23 @@ void Savings::GetRedeemRecord(SavingsLendingRecord params, json &result){
         query_params.add_new_query("size", params.size);
         query_params.add_new_query("recvWindow", params.recvWindow);
         query_params.add_new_query("timestamp", params.timestamp);
-        std::cout << query_params.to_str() << std::endl;
+
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/sapi/v1/lending/union/redemptionRecord?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
-    }     
-
-
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
+    }
 }
 
-void Savings::GetInterestHistory(SavingsLendingRecord params, json &result){
+void Savings::GetInterestHistory(SavingsLendingRecord params, json &result)
+{
 
     struct memory chunk;
 
@@ -414,24 +395,23 @@ void Savings::GetInterestHistory(SavingsLendingRecord params, json &result){
         query_params.add_new_query("size", params.size);
         query_params.add_new_query("recvWindow", params.recvWindow);
         query_params.add_new_query("timestamp", params.timestamp);
-        std::cout << query_params.to_str() << std::endl;
+
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/sapi/v1/lending/union/interestHistory?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
-    }     
-
+        SetUpCurlOpt(curl, url, "", headers, Action::GET, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
+    }
 }
 
-void Savings::ChangeFixedActivityPositionToDaily(SavingsChangeFixedActivityPositionToDailyParams params, json &result){
+void Savings::ChangeFixedActivityPositionToDaily(SavingsChangeFixedActivityPositionToDailyParams params, json &result)
+{
 
     struct memory chunk;
 
@@ -440,26 +420,23 @@ void Savings::ChangeFixedActivityPositionToDaily(SavingsChangeFixedActivityPosit
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
- 
+
         query_params.add_new_query("projectId", params.projectId);
         query_params.add_new_query("lot", params.lot);
         query_params.add_new_query("positionId", params.positionId);
         query_params.add_new_query("recvWindow", params.recvWindow);
         query_params.add_new_query("timestamp", params.timestamp);
-        std::cout << query_params.to_str() << std::endl;
+
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
-        query_params.add_new_query("signature", sig);
+        query_params.add_signature(sig);
         std::string url = endpoint + "/sapi/v1/lending/positionChanged?" + query_params.to_str();
         std::vector<Header> headers;
 
-        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        headers.push_back(Header{api_key_header, api_key});
 
-        setup_curl_opt(curl, url, "", headers, Action::POST, chunk);
-        start_curl(curl);
-        if (json::accept(chunk.response))
-            result = json::parse(chunk.response);
-    }        
-
-
+        SetUpCurlOpt(curl, url, "", headers, Action::POST, chunk);
+        StartCurl(curl);
+        ParseToJson(chunk.response, result);
+    }
 }

@@ -6,8 +6,7 @@
 class UserDataStreams : public BinanceAPI{
 
     public:
-        UserDataStreams(){};
-        void init(){};
+        UserDataStreams() : BinanceAPI() {};
         void CreateListenKey(json &result);
         void PingListenKey(UserDataStreamsListenKeyParams params, json &result);
         void CloseListenKey(UserDataStreamsListenKeyParams params, json &result);
