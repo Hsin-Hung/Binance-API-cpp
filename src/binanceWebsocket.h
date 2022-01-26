@@ -318,6 +318,7 @@ public:
     void StreamAllBookTickers(stream_callback callback);
     void StreamPartialBookDepth(std::string symbol, std::string levels, stream_callback callback);
     void StreamDiffDepth(std::string symbol, stream_callback callback);
+    void StreamUserData(std::string key, stream_callback callback);
 };
 
 #endif

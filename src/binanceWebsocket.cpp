@@ -238,3 +238,15 @@ void BinanceWebsocket::StreamDiffDepth(std::string symbol, stream_callback callb
     // Launch the asynchronous operation
     ws->run(path.c_str(), json(), callback);
 }
+
+void BinanceWebsocket::StreamUserData(std::string key, stream_callback callback){
+
+    std::string path = "/ws/" + key;
+
+    // This holds the root certificate used for verification
+    // load_root_certificates(ctx);
+    // Launch the asynchronous operation
+    ws->run(path.c_str(), json(), callback);
+
+
+}

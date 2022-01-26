@@ -129,7 +129,9 @@ void MarketData::OldTradeLookup(MarketOldTradeLookupParams params, json &result)
         query_params.add_new_query("limit", params.limit);
         query_params.add_new_query("fromId", params.fromId);
         std::string url = endpoint + "/api/v3/historicalTrades?" + query_params.to_str();
-        setup_curl_opt(curl, url, "", std::vector<Header>(), Action::GET, chunk);
+        std::vector<Header> headers;
+        headers.push_back(Header{"X-MBX-APIKEY", api_key});
+        setup_curl_opt(curl, url, "", headers, Action::GET, chunk);
         start_curl(curl);
         if (json::accept(chunk.response))
             result = json::parse(chunk.response);
