@@ -303,21 +303,21 @@ public:
     BinanceWebsocket();
     void init();
     void run();
-    void subscribe_Streams(std::vector<std::string> streams, stream_callback callback);
-    void unsubscribe_Streams(std::vector<std::string> streams, stream_callback callback);
-    void list_Subscribtions(stream_callback callback);
-    void access_Combined_Streams(std::vector<std::string> streams, stream_callback callback);
-    void stream_Aggregate_Trade(std::string symbol, stream_callback callback);
-    void stream_Trade(std::string symbol, stream_callback callback);
-    void stream_KlineCandlestick(std::string symbol, std::string interval, stream_callback callback);
-    void stream_Mini_Ticker(std::string symbol, stream_callback callback);
-    void stream_All_Mini_Tickers(stream_callback callback);
-    void stream_Symbol_Ticker(std::string symbol, stream_callback callback);
-    void stream_All_Market_Tickers(stream_callback callback);
-    void stream_Symbol_Book_Ticker(std::string symbol, stream_callback callback);
-    void stream_All_Book_Tickers(stream_callback callback);
-    void stream_Partial_Book_Depth(std::string symbol, std::string levels, stream_callback callback);
-    void stream_Diff_Depth(std::string symbol, stream_callback callback);
+    void SubscribeStreams(std::vector<std::string> streams, stream_callback callback);
+    void UnsubscribeStreams(std::vector<std::string> streams, stream_callback callback);
+    void ListSubscribtions(stream_callback callback);
+    void AccessCombinedStreams(std::vector<std::string> streams, stream_callback callback);
+    void StreamAggregateTrade(std::string symbol, stream_callback callback);
+    void StreamTrade(std::string symbol, stream_callback callback);
+    void StreamKlineCandlestick(std::string symbol, std::string interval, stream_callback callback);
+    void StreamMiniTicker(std::string symbol, stream_callback callback);
+    void StreamAllMiniTickers(stream_callback callback);
+    void StreamSymbolTicker(std::string symbol, stream_callback callback);
+    void StreamAllMarketTickers(stream_callback callback);
+    void StreamSymbolBookTicker(std::string symbol, stream_callback callback);
+    void StreamAllBookTickers(stream_callback callback);
+    void StreamPartialBookDepth(std::string symbol, std::string levels, stream_callback callback);
+    void StreamDiffDepth(std::string symbol, stream_callback callback);
 };
 
 #endif

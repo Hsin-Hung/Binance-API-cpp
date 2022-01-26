@@ -6,6 +6,7 @@
 #include <thread>
 #include <chrono>
 #include "wallet.h"
+#include "savings.h"
 #include "marketData.h"
 #include "binanceWebsocket.h"
 #include "spotAccountTrade.h"
@@ -18,17 +19,14 @@ int main(void)
   std::getline(infile, s);
   std::time_t result = std::time(nullptr);
   std::asctime(std::localtime(&result));
-  // Wallet wallet;
-  // json j;
-  // wallet.set_api_keys(p, s);
-  // wallet.get_All_Coins(result * 1000, 5000, j);
-  // std::cout << j.dump() << std::endl;
 
-  // MarketData md;
+  // Savings svg;
+  // svg.set_api_keys(p, s);
   // json j;
-  // md.get_KlineCandlestick_Data("ETHUSDT", "5m", -1, -1, 10, j);
-  // std::cout << j.dump() << std::endl;
-  // md.get_Current_Avg_Price("ETHUSDT", j);
+  // SavingsFlexProductPositionParams pm;
+  // pm.timestamp = result * 1000;
+  // pm.asset = "BUSD";
+  // svg.GetFlexProductPosition(pm, j);
   // std::cout << j.dump() << std::endl;
 
   return 0;

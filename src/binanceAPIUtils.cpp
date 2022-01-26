@@ -150,3 +150,121 @@ std::string get_Action(Action action)
 
     return "";
 }
+
+std::string get_SavingsStatus(SavingsStatus status){
+
+    switch (status)
+    {
+
+    case SavingsStatus::ALL:
+        return "ALL";
+    case SavingsStatus::SUBSCRIBABLE:
+        return "SUBSCRIBABLE";
+    case SavingsStatus::UNSUBSCRIBABLE:
+        return "UNSUBSCRIBABLE";
+    case SavingsStatus::NONE:
+        return "NONE";
+    default:
+        std::cout << "no such status" << std::endl;
+    }
+
+    return "";
+
+}
+
+std::string get_SavingsFlexRedeemType(SavingsFlexRedeemType type){
+
+    switch (type)
+    {
+
+    case SavingsFlexRedeemType::FAST:
+        return "FAST";
+    case SavingsFlexRedeemType::NORMAL:
+        return "NORMAL";
+    default:
+        std::cout << "no such type" << std::endl;
+    }
+
+    return "";
+
+}
+
+
+std::string get_SavingsFixedActivityType(SavingsFixedActivityType type){
+
+    switch (type)
+    {
+
+    case SavingsFixedActivityType::ACTIVITY:
+        return "ACTIVITY";
+    case SavingsFixedActivityType::CUSTOMIZED_FIXED:
+        return "CUSTOMIZED_FIXED";
+    default:
+        std::cout << "no such type" << std::endl;
+    }
+
+    return "";
+
+}
+
+std::string get_SavingsSavingsSortBy(SavingsSortBy by){
+
+    switch (by)
+    {
+
+    case SavingsSortBy::START_TIME:
+        return "START_TIME";
+    case SavingsSortBy::LOT_SIZE:
+        return "LOT_SIZE";
+    case SavingsSortBy::INTEREST_RATE:
+        return "INTEREST_RATE";
+    case SavingsSortBy::DURATION:
+        return "DURATION";
+    case SavingsSortBy::NONE:
+        return "NONE";
+    default:
+        std::cout << "no such by" << std::endl;
+    }
+
+    return "";
+
+}
+
+std::string get_SavingsFixedActivityPositionStatus(SavingsFixedActivityPositionStatus status){
+
+    switch (status)
+    {
+
+    case SavingsFixedActivityPositionStatus::HOLDING:
+        return "HOLDING";
+    case SavingsFixedActivityPositionStatus::REDEEMED:
+        return "REDEEMED";
+    case SavingsFixedActivityPositionStatus::NONE:
+        return "NONE";
+    default:
+        std::cout << "no such status" << std::endl;
+    }
+
+    return "";
+
+
+}
+
+std::string get_SavingsLendingType(SavingsLendingType type){
+
+    switch (type)
+    {
+
+    case SavingsLendingType::DAILY:
+        return "DAILY";
+    case SavingsLendingType::ACTIVITY:
+        return "ACTIVITY";
+    case SavingsLendingType::CUSTOMIZED_FIXED:
+        return "CUSTOMIZED_FIXED";
+    default:
+        std::cout << "no such type" << std::endl;
+    }
+
+    return "";
+
+}

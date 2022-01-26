@@ -23,7 +23,7 @@ struct Header
 
 struct memory
 {
-    char *response;
+    std::string response;
     size_t size;
 };
 
@@ -31,8 +31,8 @@ static size_t curl_callback(char *ptr, size_t size, size_t nmemb, void *userdata
 {
     size_t realsize = size * nmemb;
     struct memory *mem = (struct memory *)userdata;
-    mem->response = ptr;
-    mem->size = realsize;
+    mem->response += ptr;
+    mem->size += realsize;
     return realsize;
 }
 

@@ -41,7 +41,7 @@ typedef struct WalletWithdraw
     std::string network;
     std::string address;
     std::string addressTag;
-    uint64_t amount;
+    double amount;
     bool transactionFeeFlag;
     std::string name;
     uint64_t walletType;

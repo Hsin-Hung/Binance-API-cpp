@@ -79,4 +79,62 @@ enum class Action
 
 std::string get_Action(Action action);
 
+enum class SavingsStatus
+{
+    ALL,
+    SUBSCRIBABLE,
+    UNSUBSCRIBABLE,
+    NONE
+
+};
+
+std::string get_SavingsStatus(SavingsStatus status);
+
+enum class SavingsFlexRedeemType
+{
+    FAST,
+    NORMAL
+};
+
+std::string get_SavingsFlexRedeemType(SavingsFlexRedeemType type);
+
+enum class SavingsFixedActivityType
+{
+    ACTIVITY,
+    CUSTOMIZED_FIXED,
+};
+
+std::string get_SavingsFixedActivityType(SavingsFixedActivityType type);
+
+enum class SavingsSortBy
+{
+    START_TIME,
+    LOT_SIZE,
+    INTEREST_RATE,
+    DURATION,
+    NONE 
+};
+
+std::string get_SavingsSavingsSortBy(SavingsSortBy by);
+
+enum class SavingsFixedActivityPositionStatus
+{
+    HOLDING,
+    REDEEMED,
+    NONE
+
+};
+
+std::string get_SavingsFixedActivityPositionStatus(SavingsFixedActivityPositionStatus status);
+
+enum class SavingsLendingType
+{
+    DAILY,
+    ACTIVITY,
+    CUSTOMIZED_FIXED
+
+};
+
+std::string get_SavingsLendingType(SavingsLendingType status);
+
 #endif

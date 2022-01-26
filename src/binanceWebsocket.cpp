@@ -40,7 +40,7 @@ void BinanceWebsocket::run()
     boost::asio::execution::outstanding_work.tracked);
     ioc.run();
 }
-void BinanceWebsocket::subscribe_Streams(std::vector<std::string> streams, stream_callback callback)
+void BinanceWebsocket::SubscribeStreams(std::vector<std::string> streams, stream_callback callback)
 {
     std::mutex m;
     std::condition_variable cv;
@@ -61,7 +61,7 @@ void BinanceWebsocket::subscribe_Streams(std::vector<std::string> streams, strea
 
 }
 
-void BinanceWebsocket::unsubscribe_Streams(std::vector<std::string> streams, stream_callback callback)
+void BinanceWebsocket::UnsubscribeStreams(std::vector<std::string> streams, stream_callback callback)
 {
     std::string path = "/stream";
 
@@ -76,7 +76,7 @@ void BinanceWebsocket::unsubscribe_Streams(std::vector<std::string> streams, str
     // Launch the asynchronous operation
     ws->run(path.c_str(), j, callback);
 }
-void BinanceWebsocket::list_Subscribtions(stream_callback callback)
+void BinanceWebsocket::ListSubscribtions(stream_callback callback)
 {
 
     std::string path = "/stream";
@@ -96,7 +96,7 @@ void BinanceWebsocket::list_Subscribtions(stream_callback callback)
     
 }
 
-void BinanceWebsocket::access_Combined_Streams(std::vector<std::string> streams, stream_callback callback)
+void BinanceWebsocket::AccessCombinedStreams(std::vector<std::string> streams, stream_callback callback)
 {
     std::string path = "/stream?streams=";
     for (auto i = 0; i < streams.size(); ++i)
@@ -117,7 +117,7 @@ void BinanceWebsocket::access_Combined_Streams(std::vector<std::string> streams,
     ws->run(path.c_str(), json(), callback);
 }
 
-void BinanceWebsocket::stream_Aggregate_Trade(std::string symbol, stream_callback callback)
+void BinanceWebsocket::StreamAggregateTrade(std::string symbol, stream_callback callback)
 {
     std::string path = "/ws/" + symbol + "@aggTrade";
 
@@ -128,7 +128,7 @@ void BinanceWebsocket::stream_Aggregate_Trade(std::string symbol, stream_callbac
     ws->run(path.c_str(), json(), callback);
 }
 
-void BinanceWebsocket::stream_Trade(std::string symbol, stream_callback callback)
+void BinanceWebsocket::StreamTrade(std::string symbol, stream_callback callback)
 {
 
     std::string path = "/ws/" + symbol + "@trade";
@@ -139,7 +139,7 @@ void BinanceWebsocket::stream_Trade(std::string symbol, stream_callback callback
     // Launch the asynchronous operation
     ws->run(path.c_str(), json(), callback);
 }
-void BinanceWebsocket::stream_KlineCandlestick(std::string symbol, std::string interval, stream_callback callback)
+void BinanceWebsocket::StreamKlineCandlestick(std::string symbol, std::string interval, stream_callback callback)
 {
 
     std::string path = "/ws/" + symbol + "@kline_" + interval;
@@ -150,7 +150,7 @@ void BinanceWebsocket::stream_KlineCandlestick(std::string symbol, std::string i
     // Launch the asynchronous operation
     ws->run(path.c_str(), json(), callback);
 }
-void BinanceWebsocket::stream_Mini_Ticker(std::string symbol, stream_callback callback)
+void BinanceWebsocket::StreamMiniTicker(std::string symbol, stream_callback callback)
 {
 
     std::string path = "/ws/" + symbol + "@miniTicker";
@@ -161,7 +161,7 @@ void BinanceWebsocket::stream_Mini_Ticker(std::string symbol, stream_callback ca
     // Launch the asynchronous operation
     ws->run(path.c_str(), json(), callback);
 }
-void BinanceWebsocket::stream_All_Mini_Tickers(stream_callback callback)
+void BinanceWebsocket::StreamAllMiniTickers(stream_callback callback)
 {
 
     std::string path = "/ws/!miniTicker@arr";
@@ -172,7 +172,7 @@ void BinanceWebsocket::stream_All_Mini_Tickers(stream_callback callback)
     // Launch the asynchronous operation
     ws->run(path.c_str(), json(), callback);
 }
-void BinanceWebsocket::stream_Symbol_Ticker(std::string symbol, stream_callback callback)
+void BinanceWebsocket::StreamSymbolTicker(std::string symbol, stream_callback callback)
 {
 
     std::string path = "/ws/" + symbol + "@ticker";
@@ -183,7 +183,7 @@ void BinanceWebsocket::stream_Symbol_Ticker(std::string symbol, stream_callback 
     // Launch the asynchronous operation
     ws->run(path.c_str(), json(), callback);
 }
-void BinanceWebsocket::stream_All_Market_Tickers(stream_callback callback)
+void BinanceWebsocket::StreamAllMarketTickers(stream_callback callback)
 {
 
     std::string path = "/ws/!ticker@arr";
@@ -194,7 +194,7 @@ void BinanceWebsocket::stream_All_Market_Tickers(stream_callback callback)
     // Launch the asynchronous operation
     ws->run(path.c_str(), json(), callback);
 }
-void BinanceWebsocket::stream_Symbol_Book_Ticker(std::string symbol, stream_callback callback)
+void BinanceWebsocket::StreamSymbolBookTicker(std::string symbol, stream_callback callback)
 {
     std::string path = "/ws/" + symbol + "@bookTicker";
 
@@ -204,7 +204,7 @@ void BinanceWebsocket::stream_Symbol_Book_Ticker(std::string symbol, stream_call
     // Launch the asynchronous operation
     ws->run(path.c_str(), json(), callback);
 }
-void BinanceWebsocket::stream_All_Book_Tickers(stream_callback callback)
+void BinanceWebsocket::StreamAllBookTickers(stream_callback callback)
 {
 
     std::string path = "/ws/!bookTicker";
@@ -216,7 +216,7 @@ void BinanceWebsocket::stream_All_Book_Tickers(stream_callback callback)
     ws->run(path.c_str(), json(), callback);
 }
 
-void BinanceWebsocket::stream_Partial_Book_Depth(std::string symbol, std::string levels, stream_callback callback)
+void BinanceWebsocket::StreamPartialBookDepth(std::string symbol, std::string levels, stream_callback callback)
 {
 
     std::string path = "/ws/" + symbol + "@depth" + levels;
@@ -227,7 +227,7 @@ void BinanceWebsocket::stream_Partial_Book_Depth(std::string symbol, std::string
     // Launch the asynchronous operation
     ws->run(path.c_str(), json(), callback);
 }
-void BinanceWebsocket::stream_Diff_Depth(std::string symbol, stream_callback callback)
+void BinanceWebsocket::StreamDiffDepth(std::string symbol, stream_callback callback)
 {
 
     std::string path = "/ws/" + symbol + "@depth";
