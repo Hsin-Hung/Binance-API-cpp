@@ -115,7 +115,7 @@ void Wallet::EnableFastWithdrawSwitch(WalletFastWithdrawSwitchParams params, jso
 
         query_params.add_new_query("recvWindow", params.recvWindow);
         query_params.add_new_query("timestamp", params.timestamp);
-        std::cout << query_params.to_str() << std::endl;
+
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
@@ -274,7 +274,7 @@ void Wallet::AccountStatus(WalletAccountStatusParams params, json &result)
         BinanceAPI::QueryParams query_params;
         query_params.add_new_query("recvWindow", params.recvWindow);
         query_params.add_new_query("timestamp", params.timestamp);
-        std::cout << query_params.to_str() << std::endl;
+
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
