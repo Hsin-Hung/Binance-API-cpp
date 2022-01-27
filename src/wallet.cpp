@@ -102,7 +102,7 @@ void Wallet::DisableFastWithdrawSwitch(WalletFastWithdrawSwitchParams params, js
     }
 }
 
-void Wallet::EnableFastWithdrawSwitch(WalletFastWithdrawSwitch params, json &result)
+void Wallet::EnableFastWithdrawSwitch(WalletFastWithdrawSwitchParams params, json &result)
 {
 
     struct memory chunk;
@@ -130,7 +130,7 @@ void Wallet::EnableFastWithdrawSwitch(WalletFastWithdrawSwitch params, json &res
     }
 }
 
-void Wallet::Withdraw(WalletWithdraw params, json &result)
+void Wallet::Withdraw(WalletWithdrawParams params, json &result)
 {
 
     struct memory chunk;
@@ -262,7 +262,7 @@ void Wallet::DepositAddress(WalletDepositAddressParams params, json &result)
     }
 }
 
-void Wallet::AccountStatus(WalletAccountStatus params, json &result)
+void Wallet::AccountStatus(WalletAccountStatusParams params, json &result)
 {
 
     struct memory chunk;

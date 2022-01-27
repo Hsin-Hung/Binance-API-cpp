@@ -46,7 +46,8 @@ enum class OrderResponseType
 
 std::string get_OrderResponseType(OrderResponseType type);
 
-enum class KCChartIntervals{
+enum class KCChartIntervals
+{
 
     _1m,
     _3m,
@@ -112,7 +113,7 @@ enum class SavingsSortBy
     LOT_SIZE,
     INTEREST_RATE,
     DURATION,
-    NONE 
+    NONE
 };
 
 std::string get_SavingsSortBy(SavingsSortBy by);
@@ -136,5 +137,15 @@ enum class SavingsLendingType
 };
 
 std::string get_SavingsLendingType(SavingsLendingType status);
+
+enum class LiquidityOperation
+{
+    ADD,
+    REMOVE,
+    NONE
+
+};
+
+std::string get_LiquidityOperation(LiquidityOperation op);
 
 #endif

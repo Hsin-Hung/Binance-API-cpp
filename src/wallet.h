@@ -10,13 +10,13 @@ public:
     void SystemStatus(json &result);
     void AllCoins(WalletAllCoinsParams params, json &result);
     void DailyAccountSnapshot(WalletAccountSnapParams params, json &result);
-    void DisableFastWithdrawSwitch(WalletFastWithdrawSwitch params, json &result);
-    void EnableFastWithdrawSwitch(WalletFastWithdrawSwitch params, json &result);
-    void Withdraw(WalletWithdraw params, json &result);
+    void DisableFastWithdrawSwitch(WalletFastWithdrawSwitchParams params, json &result);
+    void EnableFastWithdrawSwitch(WalletFastWithdrawSwitchParams params, json &result);
+    void Withdraw(WalletWithdrawParams params, json &result);
     void DepositHistory(WalletDepositHistoryParams params, json &result);
     void WithdrawHistory(WalletWithdrawHistoryParams params, json &result);
     void DepositAddress(WalletDepositAddressParams params, json &result);
-    void AccountStatus(WalletAccountStatus params, json &result);
+    void AccountStatus(WalletAccountStatusParams params, json &result);
     void AccountAPITradeStatus(WalletAccountAPITradeStatusParams params, json &result);
     void DustLog(WalletDustLogParams params, json &result);
     void DustTransfer(WalletDustTransferParams params, json &result);

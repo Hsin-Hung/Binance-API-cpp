@@ -17,9 +17,9 @@ class Savings : public BinanceAPI{
     void PurchaseFixedActivity(SavingsPurchaseFixedActivityParams params, json &result);
     void GetFixedActivityPosition(SavingsFixedActivityPositionParams params, json &result);
     void LendingAccount(SavingsLendingAccountParams params, json &result);
-    void GetPurchaseRecord(SavingsLendingRecord params, json &result);
-    void GetRedeemRecord(SavingsLendingRecord params, json &result);
-    void GetInterestHistory(SavingsLendingRecord params, json &result);
+    void GetPurchaseRecord(SavingsLendingRecordParams params, json &result);
+    void GetRedeemRecord(SavingsLendingRecordParams params, json &result);
+    void GetInterestHistory(SavingsLendingRecordParams params, json &result);
     void ChangeFixedActivityPositionToDaily(SavingsChangeFixedActivityPositionToDailyParams params, json &result);
 };
 

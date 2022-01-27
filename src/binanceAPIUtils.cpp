@@ -12,7 +12,7 @@ std::string get_OrderSide(OrderSide side)
         return "SELL";
 
     default:
-        std::cout << "no such type" << std::endl;
+        std::cout << "no such side" << std::endl;
     }
 
     return "";
@@ -60,7 +60,7 @@ std::string get_TimeInForce(TimeInForce time)
     case TimeInForce::NONE:
         return "NONE";
     default:
-        std::cout << "no such type" << std::endl;
+        std::cout << "no such time" << std::endl;
     }
 
     return "";
@@ -145,13 +145,14 @@ std::string get_Action(Action action)
     case Action::DELETE:
         return "DELETE";
     default:
-        std::cout << "no such type" << std::endl;
+        std::cout << "no such action" << std::endl;
     }
 
     return "";
 }
 
-std::string get_SavingsStatus(SavingsStatus status){
+std::string get_SavingsStatus(SavingsStatus status)
+{
 
     switch (status)
     {
@@ -169,10 +170,10 @@ std::string get_SavingsStatus(SavingsStatus status){
     }
 
     return "";
-
 }
 
-std::string get_SavingsFlexRedeemType(SavingsFlexRedeemType type){
+std::string get_SavingsFlexRedeemType(SavingsFlexRedeemType type)
+{
 
     switch (type)
     {
@@ -186,11 +187,10 @@ std::string get_SavingsFlexRedeemType(SavingsFlexRedeemType type){
     }
 
     return "";
-
 }
 
-
-std::string get_SavingsFixedActivityType(SavingsFixedActivityType type){
+std::string get_SavingsFixedActivityType(SavingsFixedActivityType type)
+{
 
     switch (type)
     {
@@ -204,10 +204,10 @@ std::string get_SavingsFixedActivityType(SavingsFixedActivityType type){
     }
 
     return "";
-
 }
 
-std::string get_SavingsSortBy(SavingsSortBy by){
+std::string get_SavingsSortBy(SavingsSortBy by)
+{
 
     switch (by)
     {
@@ -227,10 +227,10 @@ std::string get_SavingsSortBy(SavingsSortBy by){
     }
 
     return "";
-
 }
 
-std::string get_SavingsFixedActivityPositionStatus(SavingsFixedActivityPositionStatus status){
+std::string get_SavingsFixedActivityPositionStatus(SavingsFixedActivityPositionStatus status)
+{
 
     switch (status)
     {
@@ -246,11 +246,10 @@ std::string get_SavingsFixedActivityPositionStatus(SavingsFixedActivityPositionS
     }
 
     return "";
-
-
 }
 
-std::string get_SavingsLendingType(SavingsLendingType type){
+std::string get_SavingsLendingType(SavingsLendingType type)
+{
 
     switch (type)
     {
@@ -266,5 +265,23 @@ std::string get_SavingsLendingType(SavingsLendingType type){
     }
 
     return "";
+}
 
+std::string get_LiquidityOperation(LiquidityOperation op)
+{
+
+    switch (op)
+    {
+
+    case LiquidityOperation::ADD:
+        return "ADD";
+    case LiquidityOperation::REMOVE:
+        return "REMOVE";
+    case LiquidityOperation::NONE:
+        return "NONE";
+    default:
+        std::cout << "no such op" << std::endl;
+    }
+
+    return "";
 }

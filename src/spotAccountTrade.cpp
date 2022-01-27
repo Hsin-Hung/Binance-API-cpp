@@ -23,7 +23,7 @@ void SpotAccountTrade::ProcessOrder(BinanceAPI::QueryParams &query_params, const
     query_params.add_new_query("timestamp", order.timestamp);
 }
 
-void SpotAccountTrade::TestNewOrder(SpotOrderParams order, json &result)
+void SpotAccountTrade::TestNewOrder(SpotOrderParams params, json &result)
 {
 
     struct memory chunk;
@@ -33,7 +33,7 @@ void SpotAccountTrade::TestNewOrder(SpotOrderParams order, json &result)
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        ProcessOrder(query_params, order);
+        ProcessOrder(query_params, params);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
@@ -47,7 +47,7 @@ void SpotAccountTrade::TestNewOrder(SpotOrderParams order, json &result)
     }
 }
 
-void SpotAccountTrade::NewOrder(SpotOrderParams order, json &result)
+void SpotAccountTrade::NewOrder(SpotOrderParams params, json &result)
 {
     struct memory chunk;
 
@@ -56,7 +56,7 @@ void SpotAccountTrade::NewOrder(SpotOrderParams order, json &result)
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        ProcessOrder(query_params, order);
+        ProcessOrder(query_params, params);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
@@ -70,7 +70,7 @@ void SpotAccountTrade::NewOrder(SpotOrderParams order, json &result)
     }
 }
 
-void SpotAccountTrade::CancelOrder(CancelSpotOrderParams order, json &result)
+void SpotAccountTrade::CancelOrder(CancelSpotOrderParams params, json &result)
 {
 
     struct memory chunk;
@@ -80,12 +80,12 @@ void SpotAccountTrade::CancelOrder(CancelSpotOrderParams order, json &result)
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        query_params.add_new_query("symbol", order.symbol);
-        query_params.add_new_query("orderId", order.orderId);
-        query_params.add_new_query("origClientOrderId", order.origClientOrderId);
-        query_params.add_new_query("newClientOrderId", order.newClientOrderId);
-        query_params.add_new_query("recvWindow", order.recvWindow);
-        query_params.add_new_query("timestamp", order.timestamp);
+        query_params.add_new_query("symbol", params.symbol);
+        query_params.add_new_query("orderId", params.orderId);
+        query_params.add_new_query("origClientOrderId", params.origClientOrderId);
+        query_params.add_new_query("newClientOrderId", params.newClientOrderId);
+        query_params.add_new_query("recvWindow", params.recvWindow);
+        query_params.add_new_query("timestamp", params.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
@@ -99,7 +99,7 @@ void SpotAccountTrade::CancelOrder(CancelSpotOrderParams order, json &result)
     }
 }
 
-void SpotAccountTrade::CancelAllOpenOrders(CancelSpotOrderParams order, json &result)
+void SpotAccountTrade::CancelAllOpenOrders(CancelSpotOrderParams params, json &result)
 {
 
     struct memory chunk;
@@ -109,9 +109,9 @@ void SpotAccountTrade::CancelAllOpenOrders(CancelSpotOrderParams order, json &re
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        query_params.add_new_query("symbol", order.symbol);
-        query_params.add_new_query("recvWindow", order.recvWindow);
-        query_params.add_new_query("timestamp", order.timestamp);
+        query_params.add_new_query("symbol", params.symbol);
+        query_params.add_new_query("recvWindow", params.recvWindow);
+        query_params.add_new_query("timestamp", params.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
@@ -125,7 +125,7 @@ void SpotAccountTrade::CancelAllOpenOrders(CancelSpotOrderParams order, json &re
     }
 }
 
-void SpotAccountTrade::QueryOrder(QuerySpotOrderParams order, json &result)
+void SpotAccountTrade::QueryOrder(QuerySpotOrderParams params, json &result)
 {
 
     struct memory chunk;
@@ -135,11 +135,11 @@ void SpotAccountTrade::QueryOrder(QuerySpotOrderParams order, json &result)
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        query_params.add_new_query("symbol", order.symbol);
-        query_params.add_new_query("orderId", order.orderId);
-        query_params.add_new_query("origClientOrderId", order.origClientOrderId);
-        query_params.add_new_query("recvWindow", order.recvWindow);
-        query_params.add_new_query("timestamp", order.timestamp);
+        query_params.add_new_query("symbol", params.symbol);
+        query_params.add_new_query("orderId", params.orderId);
+        query_params.add_new_query("origClientOrderId", params.origClientOrderId);
+        query_params.add_new_query("recvWindow", params.recvWindow);
+        query_params.add_new_query("timestamp", params.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
@@ -153,7 +153,7 @@ void SpotAccountTrade::QueryOrder(QuerySpotOrderParams order, json &result)
     }
 }
 
-void SpotAccountTrade::CurrentOpenOrders(OpenSpotOrdersParams order, json &result)
+void SpotAccountTrade::CurrentOpenOrders(OpenSpotOrdersParams params, json &result)
 {
 
     struct memory chunk;
@@ -163,9 +163,9 @@ void SpotAccountTrade::CurrentOpenOrders(OpenSpotOrdersParams order, json &resul
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        query_params.add_new_query("symbol", order.symbol);
-        query_params.add_new_query("recvWindow", order.recvWindow);
-        query_params.add_new_query("timestamp", order.timestamp);
+        query_params.add_new_query("symbol", params.symbol);
+        query_params.add_new_query("recvWindow", params.recvWindow);
+        query_params.add_new_query("timestamp", params.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
@@ -179,7 +179,7 @@ void SpotAccountTrade::CurrentOpenOrders(OpenSpotOrdersParams order, json &resul
     }
 }
 
-void SpotAccountTrade::AllOrders(AllSpotOrdersParams order, json &result)
+void SpotAccountTrade::AllOrders(AllSpotOrdersParams params, json &result)
 {
 
     struct memory chunk;
@@ -189,13 +189,13 @@ void SpotAccountTrade::AllOrders(AllSpotOrdersParams order, json &result)
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        query_params.add_new_query("symbol", order.symbol);
-        query_params.add_new_query("orderId", order.orderId);
-        query_params.add_new_query("startTime", order.startTime);
-        query_params.add_new_query("endTime", order.endTime);
-        query_params.add_new_query("limit", order.limit);
-        query_params.add_new_query("recvWindow", order.recvWindow);
-        query_params.add_new_query("timestamp", order.timestamp);
+        query_params.add_new_query("symbol", params.symbol);
+        query_params.add_new_query("orderId", params.orderId);
+        query_params.add_new_query("startTime", params.startTime);
+        query_params.add_new_query("endTime", params.endTime);
+        query_params.add_new_query("limit", params.limit);
+        query_params.add_new_query("recvWindow", params.recvWindow);
+        query_params.add_new_query("timestamp", params.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
@@ -209,7 +209,7 @@ void SpotAccountTrade::AllOrders(AllSpotOrdersParams order, json &result)
     }
 }
 
-void SpotAccountTrade::NewOCO(NewSpotOCOParams order, json &result)
+void SpotAccountTrade::NewOCO(NewSpotOCOParams params, json &result)
 {
 
     struct memory chunk;
@@ -219,26 +219,26 @@ void SpotAccountTrade::NewOCO(NewSpotOCOParams order, json &result)
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        query_params.add_new_query("symbol", order.symbol);
-        query_params.add_new_query("listClientOrderId", order.listClientOrderId);
-        query_params.add_new_query("side", get_OrderSide(order.side));
-        query_params.add_new_query("quantity", order.quantity);
-        query_params.add_new_query("limitClientOrderId", order.limitClientOrderId);
-        query_params.add_new_query("price", order.price);
-        query_params.add_new_query("limitIcebergQty", order.limitIcebergQty);
-        query_params.add_new_query("stopClientOrderId", order.stopClientOrderId);
-        query_params.add_new_query("stopPrice", order.stopPrice);
-        query_params.add_new_query("stopLimitPrice", order.stopLimitPrice);
-        query_params.add_new_query("stopIcebergQty", order.stopIcebergQty);
+        query_params.add_new_query("symbol", params.symbol);
+        query_params.add_new_query("listClientOrderId", params.listClientOrderId);
+        query_params.add_new_query("side", get_OrderSide(params.side));
+        query_params.add_new_query("quantity", params.quantity);
+        query_params.add_new_query("limitClientOrderId", params.limitClientOrderId);
+        query_params.add_new_query("price", params.price);
+        query_params.add_new_query("limitIcebergQty", params.limitIcebergQty);
+        query_params.add_new_query("stopClientOrderId", params.stopClientOrderId);
+        query_params.add_new_query("stopPrice", params.stopPrice);
+        query_params.add_new_query("stopLimitPrice", params.stopLimitPrice);
+        query_params.add_new_query("stopIcebergQty", params.stopIcebergQty);
 
-        if (order.stopLimitTimeInForce != TimeInForce::NONE)
-            query_params.add_new_query("stopLimitTimeInForce", get_TimeInForce(order.stopLimitTimeInForce));
+        if (params.stopLimitTimeInForce != TimeInForce::NONE)
+            query_params.add_new_query("stopLimitTimeInForce", get_TimeInForce(params.stopLimitTimeInForce));
 
-        if (order.newOrderRespType != OrderResponseType::NONE)
-            query_params.add_new_query("newOrderRespType", get_OrderResponseType(order.newOrderRespType));
+        if (params.newOrderRespType != OrderResponseType::NONE)
+            query_params.add_new_query("newOrderRespType", get_OrderResponseType(params.newOrderRespType));
 
-        query_params.add_new_query("recvWindow", order.recvWindow);
-        query_params.add_new_query("timestamp", order.timestamp);
+        query_params.add_new_query("recvWindow", params.recvWindow);
+        query_params.add_new_query("timestamp", params.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
@@ -252,7 +252,7 @@ void SpotAccountTrade::NewOCO(NewSpotOCOParams order, json &result)
     }
 }
 
-void SpotAccountTrade::CancelOCO(CancelSpotOCOParams order, json &result)
+void SpotAccountTrade::CancelOCO(CancelSpotOCOParams params, json &result)
 {
 
     struct memory chunk;
@@ -262,12 +262,12 @@ void SpotAccountTrade::CancelOCO(CancelSpotOCOParams order, json &result)
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        query_params.add_new_query("symbol", order.symbol);
-        query_params.add_new_query("orderListId", order.orderListId);
-        query_params.add_new_query("listClientOrderId", order.listClientOrderId);
-        query_params.add_new_query("newClientOrderId", order.newClientOrderId);
-        query_params.add_new_query("recvWindow", order.recvWindow);
-        query_params.add_new_query("timestamp", order.timestamp);
+        query_params.add_new_query("symbol", params.symbol);
+        query_params.add_new_query("orderListId", params.orderListId);
+        query_params.add_new_query("listClientOrderId", params.listClientOrderId);
+        query_params.add_new_query("newClientOrderId", params.newClientOrderId);
+        query_params.add_new_query("recvWindow", params.recvWindow);
+        query_params.add_new_query("timestamp", params.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
@@ -281,7 +281,7 @@ void SpotAccountTrade::CancelOCO(CancelSpotOCOParams order, json &result)
     }
 }
 
-void SpotAccountTrade::QueryOCO(QuerySpotOCOParams order, json &result)
+void SpotAccountTrade::QueryOCO(QuerySpotOCOParams params, json &result)
 {
     struct memory chunk;
 
@@ -290,10 +290,10 @@ void SpotAccountTrade::QueryOCO(QuerySpotOCOParams order, json &result)
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        query_params.add_new_query("orderListId", order.orderListId);
-        query_params.add_new_query("origClientOrderId", order.origClientOrderId);
-        query_params.add_new_query("recvWindow", order.recvWindow);
-        query_params.add_new_query("timestamp", order.timestamp);
+        query_params.add_new_query("orderListId", params.orderListId);
+        query_params.add_new_query("origClientOrderId", params.origClientOrderId);
+        query_params.add_new_query("recvWindow", params.recvWindow);
+        query_params.add_new_query("timestamp", params.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
@@ -335,7 +335,7 @@ void SpotAccountTrade::QueryAllOCO(QueryAllSpotOCOParams order, json &result)
     }
 }
 
-void SpotAccountTrade::QueryOpenOCO(QueryOpenSpotOCOParams order, json &result)
+void SpotAccountTrade::QueryOpenOCO(QueryOpenSpotOCOParams params, json &result)
 {
 
     struct memory chunk;
@@ -345,8 +345,8 @@ void SpotAccountTrade::QueryOpenOCO(QueryOpenSpotOCOParams order, json &result)
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        query_params.add_new_query("recvWindow", order.recvWindow);
-        query_params.add_new_query("timestamp", order.timestamp);
+        query_params.add_new_query("recvWindow", params.recvWindow);
+        query_params.add_new_query("timestamp", params.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
@@ -360,7 +360,7 @@ void SpotAccountTrade::QueryOpenOCO(QueryOpenSpotOCOParams order, json &result)
     }
 }
 
-void SpotAccountTrade::AccountInfo(SpotAccountInfoParams account, json &result)
+void SpotAccountTrade::AccountInfo(SpotAccountInfoParams params, json &result)
 {
     struct memory chunk;
 
@@ -369,8 +369,8 @@ void SpotAccountTrade::AccountInfo(SpotAccountInfoParams account, json &result)
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        query_params.add_new_query("recvWindow", account.recvWindow);
-        query_params.add_new_query("timestamp", account.timestamp);
+        query_params.add_new_query("recvWindow", params.recvWindow);
+        query_params.add_new_query("timestamp", params.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
@@ -384,7 +384,7 @@ void SpotAccountTrade::AccountInfo(SpotAccountInfoParams account, json &result)
     }
 }
 
-void SpotAccountTrade::AccountTradeList(SpotAccountTradeListParams account, json &result)
+void SpotAccountTrade::AccountTradeList(SpotAccountTradeListParams params, json &result)
 {
     struct memory chunk;
 
@@ -393,14 +393,14 @@ void SpotAccountTrade::AccountTradeList(SpotAccountTradeListParams account, json
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        query_params.add_new_query("symbol", account.symbol);
-        query_params.add_new_query("orderId", account.orderId);
-        query_params.add_new_query("startTime", account.startTime);
-        query_params.add_new_query("endTime", account.endTime);
-        query_params.add_new_query("fromId", account.fromId);
-        query_params.add_new_query("limit", account.limit);
-        query_params.add_new_query("recvWindow", account.recvWindow);
-        query_params.add_new_query("timestamp", account.timestamp);
+        query_params.add_new_query("symbol", params.symbol);
+        query_params.add_new_query("orderId", params.orderId);
+        query_params.add_new_query("startTime", params.startTime);
+        query_params.add_new_query("endTime", params.endTime);
+        query_params.add_new_query("fromId", params.fromId);
+        query_params.add_new_query("limit", params.limit);
+        query_params.add_new_query("recvWindow", params.recvWindow);
+        query_params.add_new_query("timestamp", params.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
@@ -414,7 +414,7 @@ void SpotAccountTrade::AccountTradeList(SpotAccountTradeListParams account, json
     }
 }
 
-void SpotAccountTrade::QueryOrderCountUsage(QuerySpotOrderCountParams order, json &result)
+void SpotAccountTrade::QueryOrderCountUsage(QuerySpotOrderCountParams params, json &result)
 {
     struct memory chunk;
 
@@ -423,8 +423,8 @@ void SpotAccountTrade::QueryOrderCountUsage(QuerySpotOrderCountParams order, jso
     if (curl)
     {
         BinanceAPI::QueryParams query_params;
-        query_params.add_new_query("recvWindow", order.recvWindow);
-        query_params.add_new_query("timestamp", order.timestamp);
+        query_params.add_new_query("recvWindow", params.recvWindow);
+        query_params.add_new_query("timestamp", params.timestamp);
         std::string sig;
         generate_HMAC_SHA256_sig(secret_key, query_params.to_str(), sig);
         query_params.add_signature(sig);
