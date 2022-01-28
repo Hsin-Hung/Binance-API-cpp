@@ -308,12 +308,12 @@ namespace Binance
         net::io_context ioc;
         ssl::context ctx{ssl::context::tlsv12_client};
         std::shared_ptr<session> ws;
-        void launch(char const *path, json req_body, stream_callback callback);
         void connectWebSocket();
 
     public:
         BinanceWebsocket();
 
+        // run event loop
         void Run();
 
         // https://binance-docs.github.io/apidocs/spot/en/#live-subscribing-unsubscribing-to-streams

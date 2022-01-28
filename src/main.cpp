@@ -1,10 +1,7 @@
-#include "binance.h"
+#include <binance.h>
 
 int main()
 {
-    Binance::MarketData market;
-    json j;
-    market.TestConnectivity(j);
-    std::cout << j.dump() << std::endl;
+    //Try out the API Wrapper here
     return 0;
 }

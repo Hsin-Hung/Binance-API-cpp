@@ -13,11 +13,6 @@ BinanceWebsocket::BinanceWebsocket() : ctx{ssl::context::tlsv12_client}
     connectWebSocket();
 }
 
-void BinanceWebsocket::launch(char const *path, json req_body, stream_callback callback)
-{
-
-    ws->run(path, req_body, callback);
-}
 void BinanceWebsocket::connectWebSocket()
 {
 
