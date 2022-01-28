@@ -22,12 +22,13 @@
 #include <boost/asio/strand.hpp>
 #include <boost/asio.hpp>
 #include <nlohmann/json.hpp>
-#include "binanceAPI.h"
 #include <cstdlib>
 #include <functional>
 #include <iostream>
 #include <memory>
 #include <string>
+
+#include "binanceAPI.h"
 
 #define WS_BASE_ENDPOINT "stream.binance.com"
 #define WS_PORT "9443"
