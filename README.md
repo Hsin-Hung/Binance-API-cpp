@@ -2,7 +2,7 @@
 
 This is a wrapper for Binance API (https://binance-docs.github.io/apidocs) implemented in cpp for most endpoints.
 
-Implemented API:
+Implemented API endpoints:
 
 * Wallet Endpoints
 * Market Data Endpoints
