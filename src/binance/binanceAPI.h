@@ -1,8 +1,12 @@
 #ifndef BINANCE_API_H
 #define BINANCE_API_H
+
 #include <string>
 #include <stdio.h>
 #include <stdlib.h>
+#include <chrono>
+#include <sys/time.h>
+#include <ctime>
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -10,10 +14,18 @@
 #include <openssl/hmac.h>
 #include <openssl/evp.h>
 #include <openssl/bn.h>
-#include "../include/json.hpp"
+#include <nlohmann/json.hpp>
+
 #include "binanceAPIUtils.h"
 
+#define API_ENDPOINT "https://api.binance.com"
+#define API_KEY_HEADER "X-MBX-APIKEY"
+
 using json = nlohmann::json;
+using std::chrono::duration_cast;
+using std::chrono::milliseconds;
+using std::chrono::seconds;
+using std::chrono::system_clock;
 
 struct Header
 {
@@ -39,13 +51,26 @@ static size_t curl_callback(char *ptr, size_t size, size_t nmemb, void *userdata
 class BinanceAPI
 {
 
+    static std::string bin_to_hex(unsigned char *input, unsigned int len);
+    static uint64_t get_current_time();
+
 protected:
     std::string api_key;
     std::string secret_key;
-    std::string api_key_header{"X-MBX-APIKEY"};
-    std::string endpoint{"https://api.binance.com"};
+    const std::string api_key_header;
+    const std::string endpoint;
 
-public:
+    BinanceAPI() : api_key_header{API_KEY_HEADER}, endpoint{API_ENDPOINT} {};
+
+    // generate HMAC SHA256 signature
+    bool generate_HMAC_SHA256_sig(std::string key, std::string data, std::string &result);
+
+    void SetUpCurlOpt(CURL *curl, std::string url, std::string data, std::vector<Header> headers, Action action, struct memory &result);
+
+    // start api call
+    void StartCurl(CURL *curl);
+    void ParseToJson(std::string data, json &result);
+
     class QueryParams
     {
 
@@ -57,6 +82,8 @@ public:
         {
             if (!value.empty())
                 params.push_back(key + "=" + value);
+            else if (value == "timestamp")
+                params.push_back(key + "=" + std::to_string(get_current_time()));
         }
         void add_new_query(std::string key, uint64_t value)
         {
@@ -98,13 +125,9 @@ public:
             return ret;
         }
     };
-    BinanceAPI(){};
+
+public:
     void SetApiKeys(std::string api_key, std::string secret_key);
-    void SetUpCurlOpt(CURL *curl, std::string url, std::string data, std::vector<Header> headers, Action action, struct memory &result);
-    void StartCurl(CURL *curl);
-    void ParseToJson(std::string data, json &result);
-    virtual ~BinanceAPI() = default;
+    virtual ~BinanceAPI() = 0;
 };
-std::string bin2hex(unsigned char *input, unsigned int len);
-bool generate_HMAC_SHA256_sig(std::string key, std::string data, std::string &result);
 #endif

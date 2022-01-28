@@ -1,5 +1,7 @@
 #include "binanceAPI.h"
 
+BinanceAPI::~BinanceAPI() {}
+
 void BinanceAPI::SetApiKeys(std::string api_key, std::string secret_key)
 {
     this->api_key = api_key;
@@ -24,10 +26,14 @@ void BinanceAPI::SetUpCurlOpt(CURL *curl, std::string url, std::string data, std
         list = curl_slist_append(list, val.c_str());
     }
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, list);
-    if (action == Action::POST || action == Action::PUT || action == Action::DELETE)
+    if (action == Action::POST)
     {
         curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, get_Action(action).c_str());
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
+    }
+    else if (action == Action::PUT || action == Action::DELETE)
+    {
+        curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, get_Action(action).c_str());
     }
 }
 
@@ -52,7 +58,7 @@ void BinanceAPI::ParseToJson(std::string data, json &result)
         result = json::parse(data);
 }
 
-std::string bin2hex(unsigned char *input, unsigned int len)
+std::string BinanceAPI::bin_to_hex(unsigned char *input, unsigned int len)
 {
     std::string res;
     const char hex[] = "0123456789abcdef";
@@ -65,14 +71,20 @@ std::string bin2hex(unsigned char *input, unsigned int len)
     return res;
 }
 
-bool generate_HMAC_SHA256_sig(std::string key, std::string data, std::string &result)
+uint64_t BinanceAPI::get_current_time()
+{
+
+    return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+}
+
+bool BinanceAPI::generate_HMAC_SHA256_sig(std::string key, std::string data, std::string &result)
 {
     unsigned char *digest;
     unsigned int resultlen = -1;
     digest = HMAC(EVP_sha256(), key.c_str(), strlen(key.c_str()), (unsigned char *)data.c_str(), strlen(data.c_str()), NULL, &resultlen);
     if (digest)
     {
-        result = bin2hex(digest, resultlen);
+        result = bin_to_hex(digest, resultlen);
         return true;
     }
     return false;

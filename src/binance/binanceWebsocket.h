@@ -21,7 +21,7 @@
 #include <boost/beast/websocket/ssl.hpp>
 #include <boost/asio/strand.hpp>
 #include <boost/asio.hpp>
-#include "../include/json.hpp"
+#include <nlohmann/json.hpp>
 #include "binanceAPI.h"
 #include <cstdlib>
 #include <functional>
@@ -66,6 +66,12 @@ public:
     {
     }
 
+    bool is_open()
+    {
+
+        return ws_.is_open();
+    }
+
     // Start the asynchronous operation
     void
     init(
@@ -89,6 +95,7 @@ public:
                 return fail(ec, "connect");
             }
             host_ += ':' + std::to_string(ep.port());
+            std::cout << "connected: " << host_ << std::endl;
         }
         catch (std::exception const &e)
         {
@@ -104,7 +111,7 @@ public:
         //         shared_from_this()));
     }
 
-    bool
+    void
     run(
         char const *path,
         json req_body,
@@ -164,14 +171,13 @@ public:
         // Host HTTP header during the WebSocket handshake.
         // See https://tools.ietf.org/html/rfc7230#section-5.4
         host_ += ':' + std::to_string(ep.port());
-        std::cout << host_ << std::endl;
+        std::cout << "connected: " << host_ << std::endl;
         // Perform the SSL handshake
         // ws_.next_layer().async_handshake(
         //     ssl::stream_base::client,
         //     beast::bind_front_handler(
         //         &session::on_ssl_handshake,
         //         shared_from_this()));
-        std::cout << "connection done" << std::endl;
     }
 
     void
@@ -299,10 +305,12 @@ class BinanceWebsocket
     net::io_context ioc;
     ssl::context ctx{ssl::context::tlsv12_client};
     std::shared_ptr<session> ws;
+    void launch(char const *path, json req_body, stream_callback callback);
+    void connectWebSocket();
 
 public:
     BinanceWebsocket();
-    void ConnectWebSocket();
+
     void Run();
 
     // https://binance-docs.github.io/apidocs/spot/en/#live-subscribing-unsubscribing-to-streams

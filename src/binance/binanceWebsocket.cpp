@@ -8,8 +8,15 @@ void fail(beast::error_code ec, char const *what)
 
 BinanceWebsocket::BinanceWebsocket() : ctx{ssl::context::tlsv12_client}
 {
+    connectWebSocket();
 }
-void BinanceWebsocket::ConnectWebSocket()
+
+void BinanceWebsocket::launch(char const *path, json req_body, stream_callback callback)
+{
+
+    ws->run(path, req_body, callback);
+}
+void BinanceWebsocket::connectWebSocket()
 {
 
     // The SSL context is required, and holds certificates
@@ -28,6 +35,7 @@ void BinanceWebsocket::ConnectWebSocket()
 
 void BinanceWebsocket::Run()
 {
+
     auto work = boost::asio::require(ioc.get_executor(),
                                      boost::asio::execution::outstanding_work.tracked);
     ioc.run();
@@ -207,7 +215,7 @@ void BinanceWebsocket::StreamPartialBookDepth(std::string symbol, std::string le
 {
 
     std::string path = "/ws/" + symbol + "@depth" + levels;
-    if(updateSpeed)
+    if (updateSpeed)
         path += "@100ms";
 
     // This holds the root certificate used for verification
@@ -220,7 +228,7 @@ void BinanceWebsocket::StreamDiffDepth(std::string symbol, bool updateSpeed, str
 {
 
     std::string path = "/ws/" + symbol + "@depth";
-    if(updateSpeed)
+    if (updateSpeed)
         path += "@100ms";
 
     // This holds the root certificate used for verification
