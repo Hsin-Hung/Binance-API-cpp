@@ -1,5 +1,7 @@
 #include "savings.h"
 
+using namespace Binance;
+
 void Savings::GetFlexProducts(SavingsFlexProductsParams params, json &result)
 {
 

@@ -1,5 +1,7 @@
 #include "spotAccountTrade.h"
 
+using namespace Binance;
+
 void SpotAccountTrade::ProcessOrder(BinanceAPI::QueryParams &query_params, const SpotOrder &order)
 {
 

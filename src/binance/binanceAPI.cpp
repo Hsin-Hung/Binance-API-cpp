@@ -1,5 +1,7 @@
 #include "binanceAPI.h"
 
+using namespace Binance;
+
 BinanceAPI::~BinanceAPI() {}
 
 void BinanceAPI::SetApiKeys(std::string api_key, std::string secret_key)

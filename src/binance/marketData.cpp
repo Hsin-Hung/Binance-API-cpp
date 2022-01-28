@@ -1,5 +1,7 @@
 #include "marketData.h"
 
+using namespace Binance;
+
 void MarketData::TestConnectivity(json &result)
 {
     struct memory chunk;

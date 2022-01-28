@@ -300,60 +300,64 @@ public:
     }
 };
 
-class BinanceWebsocket
+namespace Binance
 {
-    net::io_context ioc;
-    ssl::context ctx{ssl::context::tlsv12_client};
-    std::shared_ptr<session> ws;
-    void launch(char const *path, json req_body, stream_callback callback);
-    void connectWebSocket();
 
-public:
-    BinanceWebsocket();
+    class BinanceWebsocket
+    {
+        net::io_context ioc;
+        ssl::context ctx{ssl::context::tlsv12_client};
+        std::shared_ptr<session> ws;
+        void launch(char const *path, json req_body, stream_callback callback);
+        void connectWebSocket();
 
-    void Run();
+    public:
+        BinanceWebsocket();
 
-    // https://binance-docs.github.io/apidocs/spot/en/#live-subscribing-unsubscribing-to-streams
-    void SubscribeStreams(std::vector<std::string> streams, stream_callback callback);
-    void UnsubscribeStreams(std::vector<std::string> streams, stream_callback callback);
-    void ListSubscribtions(stream_callback callback);
-    void AccessCombinedStreams(std::vector<std::string> streams, stream_callback callback);
+        void Run();
 
-    // https://binance-docs.github.io/apidocs/spot/en/#aggregate-trade-streams
-    void StreamAggregateTrade(std::string symbol, stream_callback callback);
+        // https://binance-docs.github.io/apidocs/spot/en/#live-subscribing-unsubscribing-to-streams
+        void SubscribeStreams(std::vector<std::string> streams, stream_callback callback);
+        void UnsubscribeStreams(std::vector<std::string> streams, stream_callback callback);
+        void ListSubscribtions(stream_callback callback);
+        void AccessCombinedStreams(std::vector<std::string> streams, stream_callback callback);
 
-    // https://binance-docs.github.io/apidocs/spot/en/#trade-streams
-    void StreamTrade(std::string symbol, stream_callback callback);
+        // https://binance-docs.github.io/apidocs/spot/en/#aggregate-trade-streams
+        void StreamAggregateTrade(std::string symbol, stream_callback callback);
 
-    // https://binance-docs.github.io/apidocs/spot/en/#kline-candlestick-streams
-    void StreamKlineCandlestick(std::string symbol, KCChartIntervals interval, stream_callback callback);
+        // https://binance-docs.github.io/apidocs/spot/en/#trade-streams
+        void StreamTrade(std::string symbol, stream_callback callback);
 
-    // https://binance-docs.github.io/apidocs/spot/en/#individual-symbol-mini-ticker-stream
-    void StreamMiniTicker(std::string symbol, stream_callback callback);
+        // https://binance-docs.github.io/apidocs/spot/en/#kline-candlestick-streams
+        void StreamKlineCandlestick(std::string symbol, KCChartIntervals interval, stream_callback callback);
 
-    // https://binance-docs.github.io/apidocs/spot/en/#all-market-mini-tickers-stream
-    void StreamAllMiniTickers(stream_callback callback);
+        // https://binance-docs.github.io/apidocs/spot/en/#individual-symbol-mini-ticker-stream
+        void StreamMiniTicker(std::string symbol, stream_callback callback);
 
-    // https://binance-docs.github.io/apidocs/spot/en/#individual-symbol-ticker-streams
-    void StreamSymbolTicker(std::string symbol, stream_callback callback);
+        // https://binance-docs.github.io/apidocs/spot/en/#all-market-mini-tickers-stream
+        void StreamAllMiniTickers(stream_callback callback);
 
-    // https://binance-docs.github.io/apidocs/spot/en/#all-market-tickers-stream
-    void StreamAllMarketTickers(stream_callback callback);
+        // https://binance-docs.github.io/apidocs/spot/en/#individual-symbol-ticker-streams
+        void StreamSymbolTicker(std::string symbol, stream_callback callback);
 
-    // https://binance-docs.github.io/apidocs/spot/en/#individual-symbol-book-ticker-streams
-    void StreamSymbolBookTicker(std::string symbol, stream_callback callback);
+        // https://binance-docs.github.io/apidocs/spot/en/#all-market-tickers-stream
+        void StreamAllMarketTickers(stream_callback callback);
 
-    // https://binance-docs.github.io/apidocs/spot/en/#all-book-tickers-stream
-    void StreamAllBookTickers(stream_callback callback);
+        // https://binance-docs.github.io/apidocs/spot/en/#individual-symbol-book-ticker-streams
+        void StreamSymbolBookTicker(std::string symbol, stream_callback callback);
 
-    // https://binance-docs.github.io/apidocs/spot/en/#partial-book-depth-streams
-    void StreamPartialBookDepth(std::string symbol, std::string levels, bool updateSpeed, stream_callback callback);
+        // https://binance-docs.github.io/apidocs/spot/en/#all-book-tickers-stream
+        void StreamAllBookTickers(stream_callback callback);
 
-    // https://binance-docs.github.io/apidocs/spot/en/#diff-depth-stream
-    void StreamDiffDepth(std::string symbol, bool updateSpeed, stream_callback callback);
+        // https://binance-docs.github.io/apidocs/spot/en/#partial-book-depth-streams
+        void StreamPartialBookDepth(std::string symbol, std::string levels, bool updateSpeed, stream_callback callback);
 
-    // https://binance-docs.github.io/apidocs/spot/en/#user-data-streams
-    void StreamUserData(std::string key, stream_callback callback);
-};
+        // https://binance-docs.github.io/apidocs/spot/en/#diff-depth-stream
+        void StreamDiffDepth(std::string symbol, bool updateSpeed, stream_callback callback);
+
+        // https://binance-docs.github.io/apidocs/spot/en/#user-data-streams
+        void StreamUserData(std::string key, stream_callback callback);
+    };
+}
 
 #endif

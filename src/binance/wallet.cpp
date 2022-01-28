@@ -1,6 +1,8 @@
 #include "wallet.h"
 #include <ctime>
 
+using namespace Binance;
+
 void Wallet::SystemStatus(json &result)
 {
     struct memory chunk;

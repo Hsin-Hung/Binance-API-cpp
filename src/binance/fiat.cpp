@@ -1,5 +1,7 @@
 #include "fiat.h"
 
+using namespace Binance;
+
 void Fiat::GetDepositWithdrawHistory(FiatHistoryParams params, json &result)
 {
 

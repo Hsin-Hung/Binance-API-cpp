@@ -1,5 +1,7 @@
 #include "bSwap.h"
 
+using namespace Binance;
+
 void BSwap::ListAllSwapPools(json &result)
 {
     struct memory chunk;

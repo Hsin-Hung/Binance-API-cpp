@@ -48,6 +48,8 @@ static size_t curl_callback(char *ptr, size_t size, size_t nmemb, void *userdata
     return realsize;
 }
 
+namespace Binance { 
+    
 class BinanceAPI
 {
 
@@ -130,4 +132,5 @@ public:
     void SetApiKeys(std::string api_key, std::string secret_key);
     virtual ~BinanceAPI() = 0;
 };
+}
 #endif

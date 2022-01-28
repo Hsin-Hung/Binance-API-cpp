@@ -1,5 +1,7 @@
 #include "binanceWebsocket.h"
 
+using namespace Binance;
+
 // Report a failure
 void fail(beast::error_code ec, char const *what)
 {

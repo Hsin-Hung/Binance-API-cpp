@@ -1,5 +1,6 @@
 #include "userDataStreams.h"
 
+using namespace Binance;
 
 void UserDataStreams::CreateListenKey(json &result){
 
