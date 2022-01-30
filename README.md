@@ -4,16 +4,16 @@ This is a wrapper for Binance API (https://binance-docs.github.io/apidocs) imple
 
 Implemented API endpoints:
 
-* Wallet Endpoints
-* Market Data Endpoints
-* Websocket Market Streams
-* Spot Account/Trade
-* User Data Streams
-* Savings Endpoints
-* BSwap Endpoints
-* Fiat Endpoints
+* Wallet Endpoints: `wallet.h`
+* Market Data Endpoints: `marketData.h`
+* Websocket Market Streams: `binanceWebsocket.h`
+* Spot Account/Trade: `spotAccountTrade.h`
+* User Data Streams: `userDataStreams.h`
+* Savings Endpoints: `savings.h`
+* BSwap Endpoints: `bSwap.h`
+* Fiat Endpoints: `fiat.h`
 
-The format for each API calls and parameters follows the official Binance API documentation. You can see the parameter's format in its endpoint's corresponding Utils header file and all necessary paramters should be provides prior to the API call with the exception of `timestamp`, which will refer to the system clock if not provided.
+The format for each API calls and parameters follows the official Binance API documentation. You can see the parameter's format in its endpoint's corresponding header and Utils file and all necessary paramters should be provides prior to the API call with the exception of `timestamp`, which will refer to the system clock if not provided.
 ## Integration
 
 add `src/binance` to your project and include the API wrapper
@@ -28,7 +28,7 @@ add `src/binance` to your project and include the API wrapper
 * `cmake ..`
 * `cmake --build .`
 * `./binanceAPI`
-  
+
 ## Examples
 
 ### Wallet Endpoints
