@@ -160,7 +160,7 @@ typedef struct WalletAssetDividendRecord
     uint64_t recvWindow;
     uint64_t timestamp;
 
-    WalletAssetDividendRecord() : startTime{0}, endTime{0}, timestamp{0}, recvWindow{0} {};
+    WalletAssetDividendRecord() : startTime{0}, endTime{0}, limit{0}, timestamp{0}, recvWindow{0} {};
 
 } WalletAssetDividendRecordParams;
 

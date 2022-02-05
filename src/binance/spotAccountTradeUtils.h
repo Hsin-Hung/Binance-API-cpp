@@ -152,7 +152,6 @@ typedef struct CancelSpotOCO
     uint64_t orderListId;
     std::string listClientOrderId;
     std::string newClientOrderId;
-
     uint64_t recvWindow;
     uint64_t timestamp;
 
@@ -167,7 +166,6 @@ typedef struct QuerySpotOCO
 
     uint64_t orderListId;
     std::string origClientOrderId;
-
     uint64_t recvWindow;
     uint64_t timestamp;
 

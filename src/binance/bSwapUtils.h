@@ -163,7 +163,7 @@ typedef struct BSwapClaimedHistory
     uint64_t recvWindow;
     uint64_t timestamp;
 
-    BSwapClaimedHistory() : type{0}, recvWindow{0}, timestamp{0} {};
+    BSwapClaimedHistory() : poolId{0}, type{0}, startTime{0}, endTime{0}, limit{0}, recvWindow{0}, timestamp{0} {};
 
 } BSwapClaimedHistoryParams;
 
