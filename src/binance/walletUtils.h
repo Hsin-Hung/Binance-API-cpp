@@ -1,6 +1,6 @@
 /*
     Binance API Wrapper for C++
-    
+
     Copyright (c) 2022 Hsin-Hung <https://github.com/Hsin-Hung>
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -224,6 +224,13 @@ typedef struct WalletFunding
     WalletFunding() : timestamp{0}, recvWindow{0} {};
 
 } WalletFundingParams;
+
+typedef struct UserAsset
+{
+    std::string asset;
+    bool needBtcValuation;
+
+} UserAssetParams;
 
 typedef struct WalletGetAPIKeyPermission
 {

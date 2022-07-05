@@ -85,6 +85,9 @@ namespace Binance
         // https://binance-docs.github.io/apidocs/spot/en/#funding-wallet-user_data
         void Funding(WalletFundingParams params, json &result);
 
+        // https://binance-docs.github.io/apidocs/spot/en/#user-asset-user_data
+        void UserAsset(UserAssetParams params, json &result);
+
         // https://binance-docs.github.io/apidocs/spot/en/#get-api-key-permission-user_data
         void GetAPIKeyPermission(WalletGetAPIKeyPermissionParams params, json &result);
     };

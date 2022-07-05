@@ -89,6 +89,34 @@ typedef struct QuerySpotOrder
 
 } QuerySpotOrderParams;
 
+typedef struct CancelReplace
+{
+
+    std::string symbol;
+    OrderSide side;
+    OrderType type;   
+    CancelReplaceMode mode;
+    TimeInForce timeInForce;
+    double quantity;
+    double quoteOrderQty;
+    double price;    
+    std::string cancelNewClientOrderId;
+    std::string cancelOrigClientOrderId;
+    uint64_t cancelOrderId;
+    std::string newClientOrderId;
+    double stopPrice;
+    uint64_t trailingDelta;
+    double icebergQty;
+    OrderResponseType newOrderRespType;    
+    uint64_t recvWindow;
+    uint64_t timestamp;    
+
+    CancelReplace() : quantity{0}, quoteOrderQty{0}, price{0}, cancelOrderId{0}, stopPrice{0}, trailingDelta{0}, icebergQty{0}, recvWindow{0}, timestamp{0}
+    {
+    }   
+
+} CancelReplaceParams;
+
 typedef struct OpenSpotOrders
 {
 

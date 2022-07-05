@@ -303,3 +303,20 @@ std::string get_LiquidityOperation(LiquidityOperation op)
 
     return "";
 }
+
+std::string get_CancelReplaceMode(CancelReplaceMode mode){
+
+    switch (mode)
+    {
+
+    case CancelReplaceMode::STOP_ON_FAILURE:
+        return "STOP_ON_FAILURE";
+    case CancelReplaceMode::ALLOW_FAILURE:
+        return "ALLOW_FAILURE";
+    default:
+        std::cout << "no such op" << std::endl;
+    }
+
+    return "";
+
+}

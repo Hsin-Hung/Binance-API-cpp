@@ -166,4 +166,12 @@ enum class LiquidityOperation
 
 std::string get_LiquidityOperation(LiquidityOperation op);
 
+enum class CancelReplaceMode
+{
+    STOP_ON_FAILURE,
+    ALLOW_FAILURE
+};
+
+std::string get_CancelReplaceMode(CancelReplaceMode mode);
+
 #endif

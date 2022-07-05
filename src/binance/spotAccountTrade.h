@@ -46,6 +46,9 @@ namespace Binance
         // https://binance-docs.github.io/apidocs/spot/en/#query-order-user_data
         void QueryOrder(QuerySpotOrderParams params, json &result);
 
+        // https://binance-docs.github.io/apidocs/spot/en/#cancel-an-existing-order-and-send-a-new-order-trade
+        void CancelReplace(CancelReplaceParams params, json &result);
+
         // https://binance-docs.github.io/apidocs/spot/en/#current-open-orders-user_data
         void CurrentOpenOrders(OpenSpotOrdersParams params, json &result);
 
