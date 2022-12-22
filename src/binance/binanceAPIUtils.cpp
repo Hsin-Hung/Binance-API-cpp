@@ -339,3 +339,24 @@ std::string get_SymbolPermissions(SymbolPermissions permissions){
     return "";
 
 }
+
+std::string get_QuoteValidTime(QuoteValidTime time){
+
+    switch (time)
+    {
+
+    case QuoteValidTime::_10s:
+        return "10s";
+    case QuoteValidTime::_30s:
+        return "30s";
+    case QuoteValidTime::_1m:
+        return "1m";
+    case QuoteValidTime::_2m:
+        return "2m";
+    default:
+        std::cout << "no such time" << std::endl;
+    }
+
+    return "";
+
+}

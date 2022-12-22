@@ -183,4 +183,13 @@ enum class SymbolPermissions
 
 std::string get_SymbolPermissions(SymbolPermissions permissions);
 
+enum class QuoteValidTime
+{
+    _10s,
+    _30s,
+    _1m,
+    _2m
+};
+
+std::string get_QuoteValidTime(QuoteValidTime time);
 #endif

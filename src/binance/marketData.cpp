@@ -1,6 +1,6 @@
 /*
     Binance API Wrapper for C++
-    
+
     Copyright (c) 2022 Hsin-Hung <https://github.com/Hsin-Hung>
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -66,7 +66,7 @@ void MarketData::ExchangeInfo(MarketExchangeInfoParams params, json &result)
         {
             query_params.add_new_query("symbol", params.symbol);
         }
-        else if(!params.symbols.empty())
+        else if (!params.symbols.empty())
         {
             std::string symbols_lst;
             symbols_lst += "[";
@@ -78,7 +78,8 @@ void MarketData::ExchangeInfo(MarketExchangeInfoParams params, json &result)
             }
             symbols_lst += "]";
             query_params.add_new_query("symbols", symbols_lst);
-        }else if(!get_SymbolPermissions(params.permissions).empty())
+        }
+        else if (!get_SymbolPermissions(params.permissions).empty())
         {
             query_params.add_new_query("permissions", get_SymbolPermissions(params.permissions));
         }
@@ -229,9 +230,7 @@ void MarketData::_24hrTickerPriceChangeStats(MarketSymbolParams params, json &re
     {
         BinanceAPI::QueryParams query_params;
         query_params.add_new_query("symbol", params.symbol);
-        if(!params.type.empty()){
-            query_params.add_new_query("type", params.type);
-        }
+        query_params.add_new_query("type", params.type);
         std::string url = endpoint + "/api/v3/ticker/24hr?" + query_params.to_str();
 
         SetUpCurlOpt(curl, url, "", std::vector<Header>(), Action::GET, chunk);
@@ -250,9 +249,7 @@ void MarketData::SymbolPrice(MarketSymbolParams params, json &result)
     {
         BinanceAPI::QueryParams query_params;
         query_params.add_new_query("symbol", params.symbol);
-        if(!params.type.empty()){
-            query_params.add_new_query("type", params.type);
-        }
+        query_params.add_new_query("type", params.type);
         std::string url = endpoint + "/api/v3/ticker/price?" + query_params.to_str();
 
         SetUpCurlOpt(curl, url, "", std::vector<Header>(), Action::GET, chunk);

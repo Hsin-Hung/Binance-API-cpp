@@ -27,5 +27,6 @@
 #include "userDataStreams.h"
 #include "fiat.h"
 #include "bSwap.h"
+#include "convert.h"
 
 #endif
