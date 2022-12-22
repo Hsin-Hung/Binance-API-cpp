@@ -174,4 +174,13 @@ enum class CancelReplaceMode
 
 std::string get_CancelReplaceMode(CancelReplaceMode mode);
 
+enum class SymbolPermissions
+{
+    SPOT,
+    MARGIN,
+    LEVERAGED
+};
+
+std::string get_SymbolPermissions(SymbolPermissions permissions);
+
 #endif

@@ -78,6 +78,9 @@ void MarketData::ExchangeInfo(MarketExchangeInfoParams params, json &result)
             }
             symbols_lst += "]";
             query_params.add_new_query("symbols", symbols_lst);
+        }else if(!get_SymbolPermissions(params.permissions).empty())
+        {
+            query_params.add_new_query("permissions", get_SymbolPermissions(params.permissions));
         }
 
         std::string url = endpoint + "/api/v3/exchangeInfo?" + query_params.to_str();
@@ -226,6 +229,9 @@ void MarketData::_24hrTickerPriceChangeStats(MarketSymbolParams params, json &re
     {
         BinanceAPI::QueryParams query_params;
         query_params.add_new_query("symbol", params.symbol);
+        if(!params.type.empty()){
+            query_params.add_new_query("type", params.type);
+        }
         std::string url = endpoint + "/api/v3/ticker/24hr?" + query_params.to_str();
 
         SetUpCurlOpt(curl, url, "", std::vector<Header>(), Action::GET, chunk);
@@ -244,6 +250,9 @@ void MarketData::SymbolPrice(MarketSymbolParams params, json &result)
     {
         BinanceAPI::QueryParams query_params;
         query_params.add_new_query("symbol", params.symbol);
+        if(!params.type.empty()){
+            query_params.add_new_query("type", params.type);
+        }
         std::string url = endpoint + "/api/v3/ticker/price?" + query_params.to_str();
 
         SetUpCurlOpt(curl, url, "", std::vector<Header>(), Action::GET, chunk);

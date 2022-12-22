@@ -320,3 +320,22 @@ std::string get_CancelReplaceMode(CancelReplaceMode mode){
     return "";
 
 }
+
+std::string get_SymbolPermissions(SymbolPermissions permissions){
+
+    switch (permissions)
+    {
+
+    case SymbolPermissions::SPOT:
+        return "SPOT";
+    case SymbolPermissions::MARGIN:
+        return "MARGIN";
+    case SymbolPermissions::LEVERAGED:
+        return "LEVERAGED";
+    default:
+        std::cout << "no such permission" << std::endl;
+    }
+
+    return "";
+
+}

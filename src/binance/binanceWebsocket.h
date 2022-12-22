@@ -75,9 +75,6 @@ namespace Binance
         // https://binance-docs.github.io/apidocs/spot/en/#individual-symbol-book-ticker-streams
         void StreamSymbolBookTicker(std::string symbol, stream_callback callback);
 
-        // https://binance-docs.github.io/apidocs/spot/en/#all-book-tickers-stream
-        void StreamAllBookTickers(stream_callback callback);
-
         // https://binance-docs.github.io/apidocs/spot/en/#partial-book-depth-streams
         void StreamPartialBookDepth(std::string symbol, std::string levels, bool updateSpeed, stream_callback callback);
 

@@ -208,18 +208,6 @@ void BinanceWebsocket::StreamSymbolBookTicker(std::string symbol, stream_callbac
     // Launch the asynchronous operation
     ws->run(path.c_str(), json(), callback);
 }
-void BinanceWebsocket::StreamAllBookTickers(stream_callback callback)
-{
-
-    std::string path = "/ws/!bookTicker";
-
-    // This holds the root certificate used for verification
-    // load_root_certificates(ctx);
-
-    // Launch the asynchronous operation
-    ws->run(path.c_str(), json(), callback);
-}
-
 void BinanceWebsocket::StreamPartialBookDepth(std::string symbol, std::string levels, bool updateSpeed, stream_callback callback)
 {
 
@@ -246,7 +234,6 @@ void BinanceWebsocket::StreamDiffDepth(std::string symbol, bool updateSpeed, str
     // Launch the asynchronous operation
     ws->run(path.c_str(), json(), callback);
 }
-
 void BinanceWebsocket::StreamUserData(std::string key, stream_callback callback)
 {
 

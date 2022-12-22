@@ -28,6 +28,7 @@ typedef struct MarketExchangeInfo
 
     std::string symbol;
     std::vector<std::string> symbols;
+    SymbolPermissions permissions;
 
 } MarketExchangeInfoParams;
 
@@ -92,6 +93,7 @@ typedef struct MarketSymbol
 {
 
     std::string symbol;
+    std::string type;
 
 } MarketSymbolParams;
 
