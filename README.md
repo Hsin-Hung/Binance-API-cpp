@@ -24,11 +24,12 @@ add `src/binance` to your project and include the API wrapper
 
 ## Build/Run
 
-* `mkdir build; cd build`
-* `cmake ..`
-* `cmake --build .`
-* `./binanceAPI`
-
+```shell
+mkdir build; cd build
+cmake ..
+cmake --build .
+./binanceAPI
+```
 ## Examples
 
 ### Wallet Endpoints
