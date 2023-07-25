@@ -1,6 +1,36 @@
-## Description
+# **Binance API Wrapper (C++)**
 
-This is a wrapper for Binance API (https://binance-docs.github.io/apidocs) implemented in cpp for most endpoints.
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+    </li>
+    <li>
+      <a href="#integration">Integration</a>
+    </li>
+    <li>
+      <a href="#build">Build</a>
+    </li>
+    <li>
+        <a href="#examples">Examples</a>
+        <ul>
+        <li><a href="#wallet-endpoints">Wallet Endpoints</a></li>
+        <li><a href="#market-data-endpoints">Market Data Endpoints</a></li>
+        <li><a href="#savings-endpoints">Savings Endpoints</a></li>
+        <li><a href="#spot-account-trade">Spot Account Trade</a></li>
+        <li><a href="#websocket-streams">Websocket Streams</a></li>
+      </ul>
+    </li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
+
+## About The Project
+
+This is a wrapper for [Binance API](https://binance-docs.github.io/apidocs/spot/en/#change-log) implemented in cpp for most endpoints.
 
 Implemented API endpoints:
 
@@ -13,7 +43,7 @@ Implemented API endpoints:
 * BSwap Endpoints: `bSwap.h`
 * Fiat Endpoints: `fiat.h`
 
-The format for each API calls and parameters follows the official Binance API documentation. You can see the parameter's format in its endpoint's corresponding header and Utils file and all necessary paramters should be provides prior to the API call with the exception of `timestamp`, which will refer to the system clock if not provided.
+The format for each API calls and parameters follows the official Binance API documentation. You can see the parameter's format in its endpoint's corresponding Header and Utils files. All necessary paramters should be provides prior to the API call with the exception of `timestamp`, which will be the system clock time if not provided.
 ## Integration
 
 add `src/binance` to your project and include the API wrapper
@@ -22,7 +52,7 @@ add `src/binance` to your project and include the API wrapper
 #include <binance.h>
 ```
 
-## Build/Run
+## Build
 
 ```shell
 mkdir build; cd build
@@ -80,7 +110,7 @@ params.featured = "TRUE";
 savings.GetFlexProducts(params, result);
 std::cout << result << std::endl;
 ```
-### Spot Account/Trade
+### Spot Account Trade
 ```cpp
 Binance::SpotAccountTrade spot;
 json result;
@@ -124,3 +154,24 @@ ws.AccessCombinedStreams(streams, [](beast::error_code, json result) -> bool
 ws.Run();
 
 ```
+
+## Contributing
+
+Thank you for considering contributing to this Binance API C++ wrapper! Your contributions are greatly appreciated and will help improve the functionality and reliability of this project.
+
+### How to Contribute
+There are two main ways you can contribute:
+
+1. **Add More API Endpoints:** If you notice that the wrapper is missing certain Binance API endpoints, you can contribute by adding support for these endpoints. Simply implement the necessary functions and ensure they adhere to the existing coding style.
+
+2. **Add Test Cases:** Robust test coverage is essential to maintain the reliability and stability of the wrapper. You can contribute by adding test cases that cover different scenarios and edge cases. Ensure that the tests validate the correctness of the implemented functionality and help prevent regressions.
+
+3. **Fix Bugs:** Bugs can sometimes slip through the cracks, and we welcome your help in identifying and fixing them. If you encounter any issues or bugs while using the wrapper, please report them by opening an issue. If you're able to fix the bug, submit a pull request with the necessary changes.
+
+## License
+
+Distributed under Apache-2.0 license. See `LICENSE` for more information.
+
+## Contact
+
+Henry - hsinhungw@gmail.com
