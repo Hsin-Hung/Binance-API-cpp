@@ -7,10 +7,13 @@
       <a href="#about-the-project">About The Project</a>
     </li>
     <li>
-      <a href="#integration">Integration</a>
+      <a href="#dependencies">Dependencies</a>
     </li>
     <li>
       <a href="#build">Build</a>
+    </li>
+    <li>
+      <a href="#integration">Integration</a>
     </li>
     <li>
         <a href="#examples">Examples</a>
@@ -44,13 +47,11 @@ Implemented API endpoints:
 * Fiat Endpoints: `fiat.h`
 
 The format for each API calls and parameters follows the official Binance API documentation. You can see the parameter's format in its endpoint's corresponding Header and Utils files. All necessary paramters should be provides prior to the API call with the exception of `timestamp`, which will be the system clock time if not provided.
-## Integration
 
-add `src/binance` to your project and include the API wrapper
-
-```cpp
-#include <binance.h>
-```
+## Dependencies
+* Boost
+* OpenSSL
+* CURL
 
 ## Build
 
@@ -60,6 +61,15 @@ cmake ..
 cmake --build .
 ./binanceAPI
 ```
+
+## Integration
+
+add `src/binance` to your project and include the API wrapper
+
+```cpp
+#include <binance.h>
+```
+
 ## Examples
 
 ### Wallet Endpoints
