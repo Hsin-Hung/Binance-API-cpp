@@ -1,5 +1,15 @@
 # **Binance API Wrapper (C++)**
 
+<p align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Binance_logo.svg" width="60%" height="60%">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/License-Apache_2.0-green.svg" alt="License-Apache_2.0">
+  <img src="https://img.shields.io/badge/PRs-Welcome-red" alt="PRs-Welcome">
+  <img src="https://img.shields.io/github/last-commit/Hsin-Hung/Binance-API-cpp/master?logo=github&color=blue" alt="last-commit">
+</p>
+
 <details>
   <summary>Table of Contents</summary>
   <ol>
