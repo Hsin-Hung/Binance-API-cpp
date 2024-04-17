@@ -19,6 +19,9 @@
     <li>
       <a href="#dependencies">Dependencies</a>
     </li>
+        <li>
+      <a href="#troubleshooting-tips">Troubleshooting Tips</a>
+    </li>
     <li>
       <a href="#build">Build</a>
     </li>
@@ -62,6 +65,10 @@ The format for each API calls and parameters follows the official Binance API do
 * Boost
 * OpenSSL
 * CURL
+
+## Troubleshooting Tips
+
+* Some issues with accessing the Binance API may arise from regional restrictions. Be creative.
 
 ## Build
 
