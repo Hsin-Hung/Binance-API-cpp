@@ -46,7 +46,7 @@
 
 ## About The Project
 
-This is a wrapper for [Binance API](https://binance-docs.github.io/apidocs/spot/en/#change-log) implemented in cpp for most endpoints.
+This is a wrapper for [Binance API](https://developers.binance.com/docs/binance-spot-api-docs/CHANGELOG) implemented in cpp for most endpoints.
 
 Implemented API endpoints:
 
